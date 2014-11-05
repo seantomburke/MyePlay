@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Connect 4 - javascript demo</title>
+	<meta name="Author" content="Yair Even-Or" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" href="css/game.css" type="text/css" media="all" />
+	<meta name="description" content="A connect-four game written in Javascript" />
+	<meta name="keywords" content="connect4, connect 4, connect four" />
+	<link rel="shortcut icon" href="favicon.ico" />
+</head>
+<body>
+	<div class='container'>
+		<h1>Connect 4</h1>
+		<div id='board_cont'></div>
+		<div id="options">
+			<button title="restart current game" class="restart">restart</button>
+			<!--
+			<button class="undo" disabled="">undo</button>
+			<button title="save this game (on this browser)" class="new">save</button>
+			<button title="load previously saved game" class="new">load</button>
+			-->
+		</div>
+	</div>
+	<footer>
+		<a href='/' class='btn'>Mye Play</a>
+	</footer>
+	<script src='js/jquery.js'></script>
+	<script src='js/game.js'></script>
+	<script>
+		board.init( $('#board_cont') ); 
+	</script>
+	<script src="http://localhost:6556/eyetribe.min.js"></script>
+	<script>
+	  EyeTribe.loop(function(frame) {
+	    console.log(frame);
+	  });
+	</script>
+</body>
+</html>

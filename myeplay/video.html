@@ -21,14 +21,15 @@
     	console.log("ready");
     
 	    $("#play").on("click", function(e){
-	    	videojs.players["example_video_1"].play();
+	    	videojs.players["video"].play();
 	    });
 	    
 	    $("#pause").on("click", function(e){
-	    	videojs.players["example_video_1"].pause();
+	    	videojs.players["video"].pause();
 	    });
 	    
 	    var activateMenu = function(e){
+	    	videojs.players["video"].pause();
 	    	console.log("menu-activate");
 	    	$("#menu-activate").css("background-color", "#CCCCCC");
 	    	$("#menu").modal('show');
