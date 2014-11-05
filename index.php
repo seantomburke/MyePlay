@@ -1,6 +1,6 @@
 <?php
 
-echo "<a href='/myeplay/game.html'>Game</a>";
-echo "<a href='/myeplay/media.html'>Media</a>";
+echo "<a href='/myeplay/game.html'>Game</a><br><br>";
+echo "<a href='/myeplay/video.html'>Video</a>";
 
 ?>
