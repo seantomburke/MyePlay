@@ -28,8 +28,12 @@
 	    	videojs.players["video"].pause();
 	    });
 	    
-		var isHover, timeoutConst = false;
-		
+		var isHover = false;
+		var timerConst;
+		var delay = 2000;
+		var seconds = 2;
+		var milli = 1;
+
 	    var activateMenu = function(e){	
 			if(! isHover) {
 				return;
@@ -38,22 +42,42 @@
 	    	console.log("menu-activate");
 	    	$("#menu").modal('show');
 	    }
-	    
+
+		var modalTimer = function(e) {
+			
+			if(seconds == 0 && milli == 0) {
+				activateMenu(e);
+				clearInterval(timerConst);
+			}
+			else if(milli == 0) {
+				milli = 9;
+				--seconds;
+				$("#menu-activate").html("" + seconds + "." + milli);
+			}
+			else {
+				$("#menu-activate").html("" + seconds + "." + --milli);
+			}
+		}
+
 	    $("#menu-activate").on("mouseover", function(e) {
 			isHover = true;
 			// sleep 2 seconds
 	    	$("#menu-activate").css("background-color", "#CCCCCC");
 
-			timeoutConst = setTimeout(function() {
-				activateMenu(e);
-			}, 2000);
-			
+	    	timerConst = setInterval(function() {modalTimer(e)}, 100);
+
 		});
 		
 		$('#menu-activate').on("mouseout", function(e) {
 			isHover = false;
+			openModal = false;
 			$("#menu-activate").css("background-color", "#555555");
-			clearTimeout(timeoutConst);
+
+			clearInterval(timerConst);
+			$("#menu-activate").html("");
+			seconds = 2;
+			milli = 1;
+
 		});
 	    
 	 });
