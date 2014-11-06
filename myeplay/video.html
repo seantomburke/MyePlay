@@ -36,13 +36,14 @@
 			}
 	    	videojs.players["video"].pause();
 	    	console.log("menu-activate");
-	    	$("#menu-activate").css("background-color", "#CCCCCC");
 	    	$("#menu").modal('show');
 	    }
 	    
 	    $("#menu-activate").on("mouseover", function(e) {
 			isHover = true;
 			// sleep 2 seconds
+	    	$("#menu-activate").css("background-color", "#CCCCCC");
+
 			setTimeout(function() {
 				activateMenu(e);
 			}, 2000);
@@ -51,6 +52,7 @@
 		
 		$('#menu-activate').on("mouseout", function(e) {
 			isHover = false;
+			$("#menu-activate").css("background-color", "#555555");
 		});
 	    
 	 });
