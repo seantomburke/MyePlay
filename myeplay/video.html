@@ -28,14 +28,30 @@
 	    	videojs.players["video"].pause();
 	    });
 	    
-	    var activateMenu = function(e){
+		var isHover = false;
+		
+	    var activateMenu = function(e){	
+			if(! isHover) {
+				return;
+			}
 	    	videojs.players["video"].pause();
 	    	console.log("menu-activate");
 	    	$("#menu-activate").css("background-color", "#CCCCCC");
 	    	$("#menu").modal('show');
 	    }
 	    
-	    $("#menu-activate").on("mouseover", activateMenu); 
+	    $("#menu-activate").on("mouseover", function(e) {
+			isHover = true;
+			// sleep 2 seconds
+			setTimeout(function() {
+				activateMenu(e);
+			}, 2000);
+			
+		});
+		
+		$('#menu-activate').on("mouseout", function(e) {
+			isHover = false;
+		});
 	    
 	 });
 	 
