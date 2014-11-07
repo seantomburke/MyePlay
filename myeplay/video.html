@@ -30,20 +30,37 @@
 	    
 		var isHoverMenuActivate = false;
 		var isHoverCloseButton = false;
+		var isHoverVolumeButton = false;
+		var isHoverVolUp = false;
+		var isHoverVolBack = false;
+		var isHoverVolDown = false;
 		var timerConstOpen;
 		var timerConstClose;
-		var delay = 2000;
+		var timerConstVolumeMenu;
+		var timerConstVolUp;
+		var timerConstVolBack;
+		var timerConstVolDown;
 		var secondsOpen = 2;
 		var secondsClose = 2;
+		var secondsVolumeMenu = 2;
+		var secondsVolUp = 2;
+		var secondsVolBack = 2;
+		var secondsVolDown = 2;
 		var milliOpen = 1;
 		var milliClose = 1;
+		var milliVolumeMenu = 1;
+		var milliVolUp = 1;
+		var milliVolBack = 1;
+		var milliVolDown = 1;
+		var currentVolume;
+		var delay = 2000;
 
 	    var activateMenu = function(e){	
 			if(! isHoverMenuActivate) {
 				return;
 			}
 	    	console.log("menu-activate");
-	    	$("#menu").modal('toggle');
+	    	$("#menu").modal('show');
 	    	videojs.players["video"].pause();
 	    }
 
@@ -65,7 +82,7 @@
 			else if(milliOpen == 0) {
 				milliOpen = 9;
 				--secondsOpen;
-				$("#menu-activate openmenu").html("" + secondsOpen + "." + milliOpen);
+				$("#menu-activate").html("" + secondsOpen + "." + milliOpen);
 			}
 			else {
 				$("#menu-activate").html("" + secondsOpen + "." + --milliOpen);
@@ -94,7 +111,6 @@
 			// sleep 2 seconds
 	    	$("#menu-activate").css("background-color", "#CCCCCC");
 	    	timerConstOpen = setInterval(function() {modalTimerOpenMenu(e)}, 100);
-
 		});
 
 		$("#close-button").on("mouseover", function(e) {
@@ -111,7 +127,6 @@
 			$("#menu-activate").html("");
 			secondsOpen = 2;
 			milliOpen = 1;
-
 		});
 
 		$('#close-button').on("mouseout", function(e) {
@@ -120,12 +135,177 @@
 			clearInterval(timerConstClose);
 			secondsClose = 2;
 			milliClose = 1;
-
 		});
 	    
+	 
+	 
+	 	// Volume Menu
+		var activateVolumeMenu = function(e){
+	    	if(! isHoverVolumeButton) {
+	    		return;
+	    	}
+	    	console.log("menu-volume-activated");
+	    	$("#menu").modal('hide');
+	    	$("#volume").modal('show');
+	    }
+
+		var modalTimerVolumeMenu = function(e) {
+			console.log("modaltimer volumemenu called")
+			if(secondsVolumeMenu == 0 && milliVolumeMenu == 0) {
+				activateVolumeMenu(e);
+				clearInterval(timerConstVolumeMenu);
+				$("#volume-button").html("Volume");
+			}
+			else if(milliVolumeMenu == 0) {
+				milliVolumeMenu = 9;
+				--secondsVolumeMenu;
+				$("#volume-button").html("" + secondsVolumeMenu + "." + milliVolumeMenu);
+			}
+			else {
+				$("#volume-button").html("" + secondsVolumeMenu + "." + --milliVolumeMenu);
+			}
+		}
+
+		$("#volume-button").on("mouseover", function(e) {
+			isHoverVolumeButton = true;
+			// sleep 2 seconds
+	    	timerConstVolumeMenu = setInterval(function() {modalTimerVolumeMenu(e)}, 100);
+		});
+
+		$('#volume-button').on("mouseout", function(e) {
+			isHoverVolumeButton = false;
+			$("#volume-button").html("Volume");
+			clearInterval(timerConstVolumeMenu);
+			secondsVolumeMenu = 2;
+			milliVolumeMenu = 1;
+		});
+
+
+
+
+		// Volume Menu Controls (Volume Up, Back, Volume Down)
+		var volumeUp = function(e){	
+			if(! isHoverVolUp) {
+				return;
+			}
+	    	console.log("hover-volumeup");
+	    	currentVolume = videojs.players["video"].volume();
+	    	if(currentVolume < 1)
+	    		videojs.players["video"].volume(currentVolume + 0.1);
+		}
+
+		var deactivateVolumeMenu = function(e){
+	    	if(! isHoverVolBack) {
+	    		return;
+	    	}
+	    	console.log("menu-volume-deactivated");
+	    	$("#volume").modal('hide');
+	    	$("#menu").modal('show');
+	    }
+
+		var volumeDown = function(e){	
+			if(! isHoverVolDown) {
+				return;
+			}
+	    	console.log("hover-volumedown");
+	    	//$("#menu").modal('toggle');
+	    	currentVolume = videojs.players["video"].volume();
+	    	if(currentVolume > 0)
+	    		videojs.players["video"].volume(currentVolume - 0.1);
+		}
+
+		var modalTimerVolUp = function(e) {
+			console.log("modaltimer volupcalled")
+			if(secondsVolUp == 0 && milliVolUp == 0) {
+				activateMenu(e);
+				clearInterval(timerConstVolUp);
+			}
+			else if(milliVolUp == 0) {
+				milliVolUp = 9;
+				--secondsVolUp;
+				$("#volumeup-button").html("" + secondsVolUp + "." + milliVolUp);
+			}
+			else {
+				$("#volumeup-button").html("" + secondsVolUp + "." + --milliVolUp);
+			}
+		}
+
+		var modalTimerVolBack = function(e) {
+			console.log("modaltimer volbackcalled")
+			if(secondsVolBack == 0 && milliVolBack == 0) {
+				deactivateVolumeMenu(e);
+				clearInterval(timerConstVolBack);
+			}
+			else if(milliVolBack == 0) {
+				milliVolBack = 9;
+				--secondsVolBack;
+				$("#volumeback-button").html("" + secondsVolBack + "." + milliVolBack);
+			}
+			else {
+				$("#volumeback-button").html("" + secondsVolBack + "." + --milliVolBack);
+			}
+		}
+
+		var modalTimerVolDown = function(e) {
+			console.log("modaltimer volDowncalled")
+			if(secondsVolDown == 0 && milliVolDown == 0) {
+				activateMenu(e);
+				clearInterval(timerConstVolDown);
+				$("#volumedown-button").html("" + secondsVolDown + "." + milliVolDown);
+			}
+			else if(milliVolDown == 0) {
+				milliVolDown = 9;
+				--secondsVolDown;
+				$("#volumedown-button").html("" + secondsVolDown + "." + milliVolDown);
+			}
+			else {
+				$("#volumedown-button").html("" + secondsVolDown + "." + --milliVolDown);
+			}
+		}
+
+		$("#volumeup-button").on("mouseover", function(e) {
+			isHoverVolUp = true;
+			// sleep 2 seconds
+	    	timerConstVolUp = setInterval(function() {modalTimerVolUp(e)}, 100);
+		});
+
+		$("#volumeback-button").on("mouseover", function(e) {
+			isHoverVolBack = true;
+			// sleep 2 seconds
+	    	timerConstVolBack = setInterval(function() {modalTimerVolBack(e)}, 100);
+		});
+
+		$("#volumedown-button").on("mouseover", function(e) {
+			isHoverVolDown = true;
+			// sleep 2 seconds
+	    	timerConstVolDown = setInterval(function() {modalTimerVolDown(e)}, 100);
+		});
+
+		$('#volumeup-button').on("mouseout", function(e) {
+			isHoverVolUp = false;
+			$("#volumeup-button").html("Volume Up");
+			clearInterval(timerConstVolUp);
+			secondsVolUp = 2;
+			milliVolUp = 1;
+		});
+
+		$('#volumeback-button').on("mouseout", function(e) {
+			isHoverVolBack = false;
+			$("#volumeback-button").html("Back");
+			clearInterval(timerConstVolBack);
+			secondsVolBack = 2;
+			milliVolBack = 1;
+		});
+
+		$('#volumedown-button').on("mouseout", function(e) {
+			isHoverVolDown = false;
+			$("#volumedown-button").html("Volume Down");
+			clearInterval(timerConstVolDown);
+			secondsVolDown = 2;
+			milliVolDown = 1;
+		});
+
 	 });
-	 
-	 
   </script>
 
 
@@ -149,7 +329,7 @@
     <button id="pause">Pause</button>
   </div>
   
-  <div class="modal fade" id="menu">
+   <div class="modal fade" id="menu">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -165,12 +345,36 @@
 			  	<a id="volume-button" href="#" class="list-group-item">Volume</a>
 			  	<a id="exit-button" href="#" class="list-group-item">Exit</a>
 			  </ul>
+			</div><!--header-->
+			<div class="modal-footer">
+			</div><!--footer-->
+		</div><!--modal content-->
+	</div><!--modal dialog--> 
+   </div><!--modal-->
+
+   <div class="modal fade" id="volume" style="display: none">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            	<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span>
+            		<span class="sr-only">Close</span>
+            	</button>
+            	<h4 class="modal-title">Volume</h4>
+            </div><!--header-->
+            <div class="modal-body">
+			  <ul class="list-group">
+			  	<a id="volumeup-button" href="#" class="list-group-item">Volume Up</a>
+			  	<a id="volumeback-button" href="#" class="list-group-item">Back</a>
+			  	<a id="volumedown-button" href="#" class="list-group-item">Volume Down</a>
+			  </ul>
 			</div><!--header -->
 			<div class="modal-footer">
 			</div><!--footer-->
 		</div><!--modal content-->
 	</div><!--modal dialog--> 
    </div><!--modal-->
+
+
   
 
 </body>

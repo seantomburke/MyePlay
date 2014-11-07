@@ -16,6 +16,16 @@ body{
 	padding:  20px;
 }
 
+.volume{
+	
+	height: 400px;
+	background-color: #333333;
+	position:  absolute;
+	top:  10px;
+	left:  40px;
+	padding:  20px;
+}
+
 #menu-activate{
 	width: 100%;
 	height: 60px;
