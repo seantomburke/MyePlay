@@ -27,33 +27,20 @@
 	    $("#pause").on("click", function(e){
 	    	videojs.players["video"].pause();
 	    });
-	    
-		var isHoverMenuActivate = false;
-		var isHoverCloseButton = false;
-		var isHoverVolumeButton = false;
-		var isHoverVolUp = false;
-		var isHoverVolBack = false;
-		var isHoverVolDown = false;
-		var timerConstOpen;
-		var timerConstClose;
-		var timerConstVolumeMenu;
-		var timerConstVolUp;
-		var timerConstVolBack;
-		var timerConstVolDown;
-		var secondsOpen = 2;
-		var secondsClose = 2;
-		var secondsVolumeMenu = 2;
-		var secondsVolUp = 2;
-		var secondsVolBack = 2;
-		var secondsVolDown = 2;
-		var milliOpen = 1;
-		var milliClose = 1;
-		var milliVolumeMenu = 1;
-		var milliVolUp = 1;
-		var milliVolBack = 1;
-		var milliVolDown = 1;
+
+		var isHoverMenuActivate = isHoverCloseButton = isHoverVolumeButton = 
+			isHoverVolUp = isHoverVolBack = isHoverVolDown = false;
+
+		var timerConstOpen, timerConstClose, timerConstVolumeMenu, timerConstVolUp, 
+			timerConstVolBack, timerConstVolDown;
+
+		var secondsOpen = secondsClose = secondsVolumeMenu = secondsVolUp = 
+			secondsVolBack = secondsVolDown = 2;
+
+		var milliOpen = milliClose = milliVolumeMenu = milliVolUp = 
+			milliVolBack = milliVolDown = 1;
+
 		var currentVolume;
-		var delay = 2000;
 
 	    var activateMenu = function(e){	
 			if(! isHoverMenuActivate) {
