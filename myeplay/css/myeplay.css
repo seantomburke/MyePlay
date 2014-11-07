@@ -8,7 +8,7 @@ body{
 
 .menu{
 	
-	height: 200px;
+	height: 400px;
 	background-color: #333333;
 	position:  absolute;
 	top:  10px;
@@ -21,4 +21,12 @@ body{
 	height: 60px;
 	text-align: center;
 	line-height: 60px;
+	font-size: 50px;
+}
+
+.list-group-item{
+	height:100px !important;
+	text-align: center !important;
+	font-size: 50px !important;
+
 }

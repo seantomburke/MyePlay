@@ -28,23 +28,33 @@
 	    	videojs.players["video"].pause();
 	    });
 	    
-		var isHover = false;
+		var isHoverMenuActivate = false;
+		var isHoverCloseButton = false;
 		var timerConst;
 		var delay = 2000;
 		var seconds = 2;
 		var milli = 1;
 
 	    var activateMenu = function(e){	
-			if(! isHover) {
+			if(! isHoverMenuActivate) {
 				return;
 			}
-	    	videojs.players["video"].pause();
 	    	console.log("menu-activate");
-	    	$("#menu").modal('show');
+	    	$("#menu").modal('toggle');
+	    	videojs.players["video"].pause();
 	    }
 
-		var modalTimer = function(e) {
-			
+	    var deactivateMenu = function(e){
+	    	if(! isHoverCloseButton) {
+	    		return;
+	    	}
+	    	console.log("menu-deactivate");
+	    	$("#menu").modal('hide');
+	    	videojs.players["video"].play();
+	    }
+
+		var modalTimerOpenMenu = function(e) {
+			console.log("modaltimer openmenucalled")
 			if(seconds == 0 && milli == 0) {
 				activateMenu(e);
 				clearInterval(timerConst);
@@ -52,29 +62,61 @@
 			else if(milli == 0) {
 				milli = 9;
 				--seconds;
-				$("#menu-activate").html("" + seconds + "." + milli);
+				$("#menu-activate openmenu").html("" + seconds + "." + milli);
 			}
 			else {
 				$("#menu-activate").html("" + seconds + "." + --milli);
 			}
 		}
 
+		var modalTimerCloseMenu = function(e) {
+			console.log("modaltimer closemenu called")
+			if(seconds == 0 && milli == 0) {
+				deactivateMenu(e);
+				clearInterval(timerConst);
+			}
+			else if(milli == 0) {
+				milli = 9;
+				--seconds;
+				$("#close-button").html("" + seconds + "." + milli);
+			}
+			else {
+				$("#close-button").html("" + seconds + "." + --milli);
+			}
+		}
+
 	    $("#menu-activate").on("mouseover", function(e) {
-			isHover = true;
+			isHoverMenuActivate = true;
 			// sleep 2 seconds
 	    	$("#menu-activate").css("background-color", "#CCCCCC");
+	    	timerConst = setInterval(function() {modalTimerOpenMenu(e)}, 100);
 
-	    	timerConst = setInterval(function() {modalTimer(e)}, 100);
+		});
 
+		$("#close-button").on("mouseover", function(e) {
+			isHoverCloseButton = true;
+			// sleep 2 seconds
+	    	timerConst = setInterval(function() {modalTimerCloseMenu(e)}, 100);
+	    	deactivateMenu();
 		});
 		
 		$('#menu-activate').on("mouseout", function(e) {
-			isHover = false;
+			isHoverMenuActivate = false;
 			openModal = false;
 			$("#menu-activate").css("background-color", "#555555");
 
 			clearInterval(timerConst);
 			$("#menu-activate").html("");
+			seconds = 2;
+			milli = 1;
+
+		});
+
+		$('#close-button').on("mouseout", function(e) {
+			isHoverCloseButton = false;
+			openModal = true;
+
+			clearInterval(timerConst);
 			seconds = 2;
 			milli = 1;
 
@@ -117,10 +159,10 @@
             </div><!--header-->
             <div class="modal-body">
 			  <ul class="list-group">
-			  	<a href="#" class="list-group-item">Close</a>
-			  	<a href="#" class="list-group-item">Channels</a>
-			  	<a href="#" class="list-group-item">Volume</a>
-			  	<a href="#" class="list-group-item">Exit</a>
+			  	<a id="close-button" href="#" class="list-group-item">Close</a>
+			  	<a id="channels-button" href="#" class="list-group-item">Channels</a>
+			  	<a id="volume-button" href="#" class="list-group-item">Volume</a>
+			  	<a id="exit-button" href="#" class="list-group-item">Exit</a>
 			  </ul>
 			</div><!--header -->
 			<div class="modal-footer">
