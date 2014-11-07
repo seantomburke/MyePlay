@@ -105,7 +105,6 @@
 		
 		$('#menu-activate').on("mouseout", function(e) {
 			isHoverMenuActivate = false;
-			openModal = false;
 			$("#menu-activate").css("background-color", "#555555");
 
 			clearInterval(timerConstOpen);
@@ -117,8 +116,7 @@
 
 		$('#close-button').on("mouseout", function(e) {
 			isHoverCloseButton = false;
-			openModal = true;
-
+			$("#close-button").html("Close");
 			clearInterval(timerConstClose);
 			secondsClose = 2;
 			milliClose = 1;
