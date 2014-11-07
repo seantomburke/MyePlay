@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=1024" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <title></title>
+    
+    <meta name="description" content="impress.js is a presentation tool based on the power of CSS3 transforms and transitions in modern browsers and inspired by the idea behind prezi.com." />
+    <meta name="author" content="Bartek Szopka" />
+
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:regular,semibold,italic,italicsemibold|PT+Sans:400,700,400italic,700italic|PT+Serif:400,700,400italic,700italic" rel="stylesheet" />
+
+    <link href="css/impress-demo.css" rel="stylesheet" />
+    
+    <link rel="shortcut icon" href="favicon.png" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+</head>
+
+<!--
+    
+    Body element is used by impress.js to set some useful class names, that will allow you to detect
+    the support and state of the presentation in CSS or other scripts.
+    
+    First very useful class name is `impress-not-supported`. This class means, that browser doesn't
+    support features required by impress.js, so you should apply some fallback styles in your CSS.
+    It's not necessary to add it manually on this element. If the script detects that browser is not
+    good enough it will add this class, but keeping it in HTML means that users without JavaScript
+    will also get fallback styles.
+    
+    When impress.js script detects that browser supports all required features, this class name will
+    be removed.
+    
+    The class name on body element also depends on currently active presentation step. More details about
+    it can be found later, when `hint` element is being described.
+    
+-->
+<body class="impress-not-supported">
+
+<!--
+    For example this fallback message is only visible when there is `impress-not-supported` class on body.
+-->
+<div class="fallback-message">
+    <p>Your browser <b>doesn't support the features required</b> by impress.js, so you are presented with a simplified version of this presentation.</p>
+    <p>For the best experience please use the latest <b>Chrome</b>, <b>Safari</b> or <b>Firefox</b> browser.</p>
+</div>
+
+<!--
+    
+    Now that's the core element used by impress.js.
+    
+    That's the wrapper for your presentation steps. In this element all the impress.js magic happens.
+    It doesn't have to be a `<div>`. Only `id` is important here as that's how the script find it.
+    
+    You probably won't need it now, but there are some configuration options that can be set on this element.
+    
+    To change the duration of the transition between slides use `data-transition-duration="2000"` giving it
+    a number of ms. It defaults to 1000 (1s).
+    
+    You can also control the perspective with `data-perspective="500"` giving it a number of pixels.
+    It defaults to 1000. You can set it to 0 if you don't want any 3D effects.
+    If you are willing to change this value make sure you understand how CSS perspective works:
+    https://developer.mozilla.org/en/CSS/perspective
+    
+    But as I said, you won't need it for now, so don't worry - there are some simple but interesting things
+    right around the corner of this tag ;)
+    
+-->
+<div id="impress">
+
+    
+    <div id="quit-top" class="step slide" data-x="0" data-y="1000" data-z="0" data-rotate-x="-90" data-rotate-y="0" data-rotate-z="0">
+        <q>Quit</q>
+    </div>
+    
+    <div id="games" class="step slide" data-x="0" data-y="707" data-z="707"  data-rotate-x="-45" data-rotate-y="0" data-rotate-z="0">
+        <q>Games</q>
+    </div>
+
+    <div id="start" class="step slide" data-x="0" data-y="0" data-z="1000"  data-rotate-x="0" data-rotate-y="0" data-rotate-z="0">
+        <q>Start</q>
+    </div>
+    
+    <div id="videos" class="step slide" data-x="0" data-y="-707" data-z="707" data-rotate-x="45" data-rotate-y="0" data-rotate-z="0">
+        <q>Videos</q>
+    </div>
+
+    <div id="quit-bottom" class="step slide" data-x="0" data-y="-1000" data-z="0" data-rotate-x="90" data-rotate-y="0" data-rotate-z="0">
+        <q>Quit</q>
+    </div>
+
+    <div id="quit-top2" class="step slide" data-x="1000" data-y="1000" data-z="0" data-rotate-x="-90" data-rotate-y="0" data-rotate-z="0">
+        <q>Quit</q>
+    </div>
+    
+    <div id="games2" class="step slide" data-x="1000" data-y="707" data-z="707"  data-rotate-x="-45" data-rotate-y="0" data-rotate-z="0">
+        <q>Games</q>
+    </div>
+
+    <div id="start2" class="step slide" data-x="1000" data-y="0" data-z="1000"  data-rotate-x="0" data-rotate-y="0" data-rotate-z="0">
+        <q>Start</q>
+    </div>
+    
+    <div id="videos2" class="step slide" data-x="1000" data-y="-707" data-z="707" data-rotate-x="45" data-rotate-y="0" data-rotate-z="0">
+        <q>Videos</q>
+    </div>
+
+    <div id="quit-bottom2" class="step slide" data-x="1000" data-y="-1000" data-z="0" data-rotate-x="90" data-rotate-y="0" data-rotate-z="0">
+        <q>Quit</q>
+    </div>
+
+    
+    <div id="overview" class="step" data-x="3000" data-y="1500" data-scale="10">
+    </div>
+
+</div>
+
+<div class="hint">
+    <p>Use a spacebar or arrow keys to navigate</p>
+</div>
+<script>
+if ("ontouchstart" in document.documentElement) { 
+    document.querySelector(".hint").innerHTML = "<p>Tap on the left or right to navigate</p>";
+}
+</script>
+
+
+<script src="js/impress.js"></script>
+<script>impress().init();</script>
+
+</body>
+</html>
