@@ -30,10 +30,13 @@
 	    
 		var isHoverMenuActivate = false;
 		var isHoverCloseButton = false;
-		var timerConst;
+		var timerConstOpen;
+		var timerConstClose;
 		var delay = 2000;
-		var seconds = 2;
-		var milli = 1;
+		var secondsOpen = 2;
+		var secondsClose = 2;
+		var milliOpen = 1;
+		var milliClose = 1;
 
 	    var activateMenu = function(e){	
 			if(! isHoverMenuActivate) {
@@ -55,33 +58,34 @@
 
 		var modalTimerOpenMenu = function(e) {
 			console.log("modaltimer openmenucalled")
-			if(seconds == 0 && milli == 0) {
+			if(secondsOpen == 0 && milliOpen == 0) {
 				activateMenu(e);
-				clearInterval(timerConst);
+				clearInterval(timerConstOpen);
 			}
-			else if(milli == 0) {
-				milli = 9;
-				--seconds;
-				$("#menu-activate openmenu").html("" + seconds + "." + milli);
+			else if(milliOpen == 0) {
+				milliOpen = 9;
+				--secondsOpen;
+				$("#menu-activate openmenu").html("" + secondsOpen + "." + milliOpen);
 			}
 			else {
-				$("#menu-activate").html("" + seconds + "." + --milli);
+				$("#menu-activate").html("" + secondsOpen + "." + --milliOpen);
 			}
 		}
 
 		var modalTimerCloseMenu = function(e) {
 			console.log("modaltimer closemenu called")
-			if(seconds == 0 && milli == 0) {
+			if(secondsClose == 0 && milliClose == 0) {
 				deactivateMenu(e);
-				clearInterval(timerConst);
+				clearInterval(timerConstClose);
+				$("#close-button").html("Close");
 			}
-			else if(milli == 0) {
-				milli = 9;
-				--seconds;
-				$("#close-button").html("" + seconds + "." + milli);
+			else if(milliClose == 0) {
+				milliClose = 9;
+				--secondsClose;
+				$("#close-button").html("" + secondsClose + "." + milliClose);
 			}
 			else {
-				$("#close-button").html("" + seconds + "." + --milli);
+				$("#close-button").html("" + secondsClose + "." + --milliClose);
 			}
 		}
 
@@ -89,15 +93,14 @@
 			isHoverMenuActivate = true;
 			// sleep 2 seconds
 	    	$("#menu-activate").css("background-color", "#CCCCCC");
-	    	timerConst = setInterval(function() {modalTimerOpenMenu(e)}, 100);
+	    	timerConstOpen = setInterval(function() {modalTimerOpenMenu(e)}, 100);
 
 		});
 
 		$("#close-button").on("mouseover", function(e) {
 			isHoverCloseButton = true;
 			// sleep 2 seconds
-	    	timerConst = setInterval(function() {modalTimerCloseMenu(e)}, 100);
-	    	deactivateMenu();
+	    	timerConstClose = setInterval(function() {modalTimerCloseMenu(e)}, 100);
 		});
 		
 		$('#menu-activate').on("mouseout", function(e) {
@@ -105,10 +108,10 @@
 			openModal = false;
 			$("#menu-activate").css("background-color", "#555555");
 
-			clearInterval(timerConst);
+			clearInterval(timerConstOpen);
 			$("#menu-activate").html("");
-			seconds = 2;
-			milli = 1;
+			secondsOpen = 2;
+			milliOpen = 1;
 
 		});
 
@@ -116,9 +119,9 @@
 			isHoverCloseButton = false;
 			openModal = true;
 
-			clearInterval(timerConst);
-			seconds = 2;
-			milli = 1;
+			clearInterval(timerConstClose);
+			secondsClose = 2;
+			milliClose = 1;
 
 		});
 	    
