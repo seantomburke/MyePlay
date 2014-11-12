@@ -209,8 +209,8 @@ a:focus {
 .slide {
     display: block;
 
-    width: 600px;
-    height: 200px;
+    width: 400px;
+    height: 400px;
     padding: 50px 20px;
 
     background-color: white;
