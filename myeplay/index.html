@@ -11,7 +11,7 @@
 
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:regular,semibold,italic,italicsemibold|PT+Sans:400,700,400italic,700italic|PT+Serif:400,700,400italic,700italic" rel="stylesheet" />
 
-    <link href="css/impress-demo.css?version=1.0.0" rel="stylesheet" />
+    <link href="css/impress-demo.css?version=1.0.1" rel="stylesheet" />
     <link href="css/progressbar.css?version=1.0.0" rel="stylesheet" />
     
     <link rel="shortcut icon" href="favicon.png" />
@@ -67,11 +67,6 @@
     right around the corner of this tag ;)
     
 -->
-<div id="controlpanel">
-    <button id="next" onclick="impress().next();">Next</button>
-    <button id="prev" onclick="impress().prev();">Prev</button>
-</div>
-
 <div id="impress">
 
 </div>
@@ -91,43 +86,47 @@ if ("ontouchstart" in document.documentElement) {
 <script src="js/progressbar.js?version=1.0.0"></script>
 <script>
 
-var id = 100;
-
-var createSlide = function(id,x,radius,angle,html){
+//create a slide in the slideshow with proper math for circle theme
+var createSlide = function(id,x,radius,angle,html,image){
     var new_div = $("<div></div>");
     new_div.attr("id", id);
     new_div.attr("data-x", x*radius);
-    new_div.attr("data-y", Math.round(Math.sin(-1*angle*Math.PI/360)*radius));
-    new_div.attr("data-z", Math.round(Math.cos(-1*angle*Math.PI/360)*radius));
-    new_div.attr("data-rotate-x", angle/2);
+    new_div.attr("data-y", Math.round(Math.sin(-2*angle*Math.PI/360)*radius));
+    new_div.attr("data-z", Math.round(Math.cos(-2*angle*Math.PI/360)*radius));
+    new_div.attr("data-rotate-x", angle);
     new_div.addClass("step slide");
     new_div.html(html)
+    new_div.css("background-image", "url(" + image + ")");
     $("#impress").append(new_div);
 }
 
-var radius = 700;
+var radius = 500;
+
+
+//create the slides and initiate impress
 
 var istart = function(){
-createSlide(id++, 0, radius, 0, id);
-createSlide(id++, 0, radius, 45, id);
-createSlide(id++, 0, radius, 90, id);
-createSlide(id++, 0, radius, 135, id);
-createSlide(id++, 0, radius, 180, id);
-createSlide(id++, 0, radius, 225, id);
-createSlide(id++, 0, radius, 270, id);
-createSlide(id++, 0, radius, 315, id);
-createSlide(id++, 0, radius, 360, id);
 
-createSlide(id++, 1, radius, 0, id);
-createSlide(id++, 1, radius, 45, id);
-createSlide(id++, 1, radius, 90, id);
-createSlide(id++, 1, radius, 135, id);
-createSlide(id++, 1, radius, 180, id);
-createSlide(id++, 1, radius, 225, id);
-createSlide(id++, 1, radius, 270, id);
-createSlide(id++, 1, radius, 315, id);
-createSlide(id++, 1, radius, 360, id);
-impress().init();
+    var id = 100;
+
+    createSlide(++id, 0, radius, 0*45, "<a href='video.html'>Videos</a>");
+    createSlide(++id, 0, radius, 1*45, "<a href='game.html'>Games</a>");
+    createSlide(++id, 0, radius, 2*45, "<a href='quit.html'>Quit</a>");
+    // createSlide(++id, 0, radius, 3*45, id);
+    // createSlide(++id, 0, radius, 4*45, id);
+    // createSlide(++id, 0, radius, 5*45, id);
+    // createSlide(++id, 0, radius, 6*45, id);
+    // createSlide(++id, 0, radius, 7*45, id);
+
+
+    //loop through and put placeholder images
+    for(var i=1;i<5;i++){
+        for(var j=0;j<8;j++){
+            createSlide(++id, i, radius, j*45, "test " + id,"http://lorempixel.com/400/400/?v="+id);
+        }
+    }
+
+    impress().init();
 }
 
 var iclear = function(){
@@ -139,10 +138,87 @@ var ireset = function(){
     istart();
 }
 
-
 istart();
 
-$("#impress").append($("#controlpanel"));
+</script>
+
+
+<script>
+//Mouse Navigation and Timer settings
+var duration = 2000;
+var timeout = null;
+
+
+var timer = document.createElement("div");
+timer.id = "timer";
+document.body.insertBefore(timer, document.getElementById("impress"));
+
+var circle = new ProgressBar.Circle('#timer', {
+        color: '#FCB03C',
+        strokeWidth: 5,
+        duration: duration
+    });
+
+// delegated handler for clicking on step elements
+document.addEventListener("mouseover", function ( event ) {
+    var target = event.target;
+    // find closest step element that is not active
+    //console.log(target.classList);
+    if( (target.classList.contains("step") && !target.classList.contains("active"))) {
+        
+        circle.duration = duration;
+        circle.animate(1,
+            {
+                from: {color: "#FC5B3F"},
+                to: {color: "#6FD57F"}
+            }, 
+            function(){
+                circle.set(0);
+            }
+        );
+
+        timeout = setTimeout(function(){
+            if ( impress().goto(target) ) {
+                event.preventDefault();
+            }
+        }, duration);
+    }
+    
+}, false);
+
+// delegated handler for clicking on step elements
+document.addEventListener("mouseout", function ( event ) {
+    var target = event.target;
+    // find closest step element that is not active
+    if( (target.classList.contains("step") && !target.classList.contains("active"))) {
+        
+        circle.set(0);
+        clearTimeout(timeout);
+                event.preventDefault();
+    }
+}, false);
+
+// delegated handler for clicking on step elements
+document.addEventListener("mouseleave", function ( event ) {
+    var target = event.target;
+    // find closest step element that is not active
+    while ( !(target.classList.contains("step") && !target.classList.contains("active")) &&
+            (target !== document.documentElement) ) {
+        target = target.parentNode;
+    }
+    circle.set(0);
+    clearTimeout(timeout);
+            event.preventDefault();
+}, false);
+
+
+onmousemove = function(event){
+    var timer = $("#timer");
+    timer.css("position", "absolute");
+    timer.css("top", (event.y -50) + "px");
+    timer.css("left", (event.x- 50) + "px");
+}
+
 
 </script>
 
