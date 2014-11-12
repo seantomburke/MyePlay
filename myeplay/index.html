@@ -12,6 +12,7 @@
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:regular,semibold,italic,italicsemibold|PT+Sans:400,700,400italic,700italic|PT+Serif:400,700,400italic,700italic" rel="stylesheet" />
 
     <link href="css/impress-demo.css" rel="stylesheet" />
+    <link href="css/progressbar.css" rel="stylesheet" />
     
     <link rel="shortcut icon" href="favicon.png" />
     <link rel="apple-touch-icon" href="apple-touch-icon.png" />
@@ -66,52 +67,12 @@
     right around the corner of this tag ;)
     
 -->
+<div id="controlpanel">
+    <button id="next" onclick="impress().next();">Next</button>
+    <button id="prev" onclick="impress().prev();">Prev</button>
+</div>
+
 <div id="impress">
-
-    
-    <div id="quit-top" class="step slide" data-x="0" data-y="1000" data-z="0" data-rotate-x="-90" data-rotate-y="0" data-rotate-z="0">
-        <q>Quit</q>
-    </div>
-    
-    <div id="games" class="step slide" data-x="0" data-y="707" data-z="707"  data-rotate-x="-45" data-rotate-y="0" data-rotate-z="0">
-        <q><a href="game.html">Games</a></q>
-    </div>
-
-    <div id="start" class="step slide" data-x="0" data-y="0" data-z="1000"  data-rotate-x="0" data-rotate-y="0" data-rotate-z="0">
-        <q>Start</q>
-    </div>
-    
-    <div id="videos" class="step slide" data-x="0" data-y="-707" data-z="707" data-rotate-x="45" data-rotate-y="0" data-rotate-z="0">
-        <q><a href="video.html">Videos</a></q>
-    </div>
-
-    <div id="quit-bottom" class="step slide" data-x="0" data-y="-1000" data-z="0" data-rotate-x="90" data-rotate-y="0" data-rotate-z="0">
-        <q>Quit</q>
-    </div>
-
-    <div id="quit-top2" class="step slide" data-x="1000" data-y="1000" data-z="0" data-rotate-x="-90" data-rotate-y="0" data-rotate-z="0">
-        <q>Quit</q>
-    </div>
-    
-    <div id="games2" class="step slide" data-x="1000" data-y="707" data-z="707"  data-rotate-x="-45" data-rotate-y="0" data-rotate-z="0">
-        <q>Games</q>
-    </div>
-
-    <div id="start2" class="step slide" data-x="1000" data-y="0" data-z="1000"  data-rotate-x="0" data-rotate-y="0" data-rotate-z="0">
-        <q>Start</q>
-    </div>
-    
-    <div id="videos2" class="step slide" data-x="1000" data-y="-707" data-z="707" data-rotate-x="45" data-rotate-y="0" data-rotate-z="0">
-        <q>Videos</q>
-    </div>
-
-    <div id="quit-bottom2" class="step slide" data-x="1000" data-y="-1000" data-z="0" data-rotate-x="90" data-rotate-y="0" data-rotate-z="0">
-        <q>Quit</q>
-    </div>
-
-    
-    <div id="overview" class="step" data-x="3000" data-y="1500" data-scale="10">
-    </div>
 
 </div>
 
@@ -126,7 +87,65 @@ if ("ontouchstart" in document.documentElement) {
 
 
 <script src="js/impress.js"></script>
-<script>impress().init();</script>
+<script src='js/jquery.js'></script>
+<script src="js/progressbar.js"></script>
+<script>
+
+var id = 100;
+
+var createSlide = function(id,x,radius,angle,html){
+    var new_div = $("<div></div>");
+    new_div.attr("id", id);
+    new_div.attr("data-x", x*radius);
+    new_div.attr("data-y", Math.round(Math.sin(-1*angle*Math.PI/360)*radius));
+    new_div.attr("data-z", Math.round(Math.cos(-1*angle*Math.PI/360)*radius));
+    new_div.attr("data-rotate-x", angle/2);
+    new_div.addClass("step slide");
+    new_div.html(html)
+    $("#impress").append(new_div);
+}
+
+var radius = 700;
+
+var istart = function(){
+createSlide(id++, 0, radius, 0, id);
+createSlide(id++, 0, radius, 45, id);
+createSlide(id++, 0, radius, 90, id);
+createSlide(id++, 0, radius, 135, id);
+createSlide(id++, 0, radius, 180, id);
+createSlide(id++, 0, radius, 225, id);
+createSlide(id++, 0, radius, 270, id);
+createSlide(id++, 0, radius, 315, id);
+createSlide(id++, 0, radius, 360, id);
+
+createSlide(id++, 1, radius, 0, id);
+createSlide(id++, 1, radius, 45, id);
+createSlide(id++, 1, radius, 90, id);
+createSlide(id++, 1, radius, 135, id);
+createSlide(id++, 1, radius, 180, id);
+createSlide(id++, 1, radius, 225, id);
+createSlide(id++, 1, radius, 270, id);
+createSlide(id++, 1, radius, 315, id);
+createSlide(id++, 1, radius, 360, id);
+impress().init();
+}
+
+var iclear = function(){
+    $("#impress").html(" ");
+}
+
+var ireset = function(){
+    iclear();
+    istart();
+}
+
+
+istart();
+
+$("#impress").append($("#controlpanel"));
+
+</script>
+
 
 </body>
 </html>
