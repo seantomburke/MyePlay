@@ -44,7 +44,7 @@ $(document).ready(function(){
         impress().prev();
       } else if (inputType == "space") {
         alert("space");
-        $('.step slide active present a').click();
+        $('.step.slide.active.present').click();
       }
     } 
   };
@@ -76,148 +76,148 @@ $(document).ready(function(){
   });
 
 /** Eyetribe movement algorithms **/
-// (function() {
-//   var leftEye;
-//   var rightEye;
-//   var cursor;
+ (function() {
+   var leftEye;
+   var rightEye;
+   var cursor;
 
-//   var tempvar_y_diff=0;
+   var tempvar_y_diff=0;
   
-//   var old_y = "";
-//   var iter =0;
-//   var tempvar_y = 0;
-//   var dateObject = new Date();
-//   var lastActionTime = dateObject.getTime();
-//   var currentTime = dateObject.getTime();
-//   var returnedToCenter = false;
+   var old_y = "";
+   var iter =0;
+   var tempvar_y = 0;
+   var dateObject = new Date();
+   var lastActionTime = dateObject.getTime();
+   var currentTime = dateObject.getTime();
+   var returnedToCenter = false;
   
-// 	var currentlyPlaying = true;
+ 	var currentlyPlaying = true;
 	
-//   EyeTribe.loop(function(frame) {
+   EyeTribe.loop(function(frame) {
   
-//     iter++;
+     iter++;
 	
-// 	if (iter > 1000){
-// 		return;
-// 	}
+ 	if (iter > 1000){
+ 		return;
+ 	}
 
-// 	var rightEye_y;
-// 	var rightEye_x;
-// 	var leftEye_y;
-// 	var leftEye_x;
+ 	var rightEye_y;
+ 	var rightEye_x;
+ 	var leftEye_y;
+ 	var leftEye_x;
 		
-// 	rightEye_y = generateEventy(frame.rightEye);
-// 	rightEye_x = generateEventx(frame.rightEye);
-// 	leftEye_y = generateEventy(frame.leftEye);
-// 	leftEye_x = generateEventx(frame.leftEye);
+ 	rightEye_y = generateEventy(frame.rightEye);
+ 	rightEye_x = generateEventx(frame.rightEye);
+	leftEye_y = generateEventy(frame.leftEye);
+ 	leftEye_x = generateEventx(frame.leftEye);
 	
-// 	var myAverage_y = 650;
-// 	if (rightEye_y != 0 && leftEye_y != 0){
-// 		myAverage_y = (rightEye_y + leftEye_y)/2;
-// 	}
-// 	else{
-// 		if(rightEye_y != 0)
-// 			myAverage_y = rightEye_y;
-// 		else if(leftEye_y != 0)
-// 			myAverage_y = leftEye_y;
-// 	}
+ 	var myAverage_y = 650;
+ 	if (rightEye_y != 0 && leftEye_y != 0){
+   		myAverage_y = (rightEye_y + leftEye_y)/2;
+ 	}
+ 	else{
+ 		if(rightEye_y != 0)
+ 			myAverage_y = rightEye_y;
+ 		else if(leftEye_y != 0)
+ 			myAverage_y = leftEye_y;
+ 	}
 	
-// 	tempvar_y = (tempvar_y + myAverage_y)/2;
+ 	tempvar_y = (tempvar_y + myAverage_y)/2;
 	
 	
-// 	/*if(old_y == ""){
-// 		old_y = tempvar_y;	
-// 	}*/
+ 	/*if(old_y == ""){
+ 		old_y = tempvar_y;	
+ 	}*/
 	
-// 	//tempvar_y_diff =  tempvar_y_diff + (old_y - tempvar_y);
+ 	//tempvar_y_diff =  tempvar_y_diff + (old_y - tempvar_y);
 	
-// 	//old_y = tempvar_y;
+ 	//old_y = tempvar_y;
 	
-// 	if(iter = 200) {
-//  		//console.log(tempvar_y);
-// 		iter = 0;
-// 	}
+	if(iter = 200) {
+  		//console.log(tempvar_y);
+ 		iter = 0;
+ 	}
 		
-// 	//console.log (tempvar_y);
+ 	//console.log (tempvar_y);
 
-// 	var dateObject2 = new Date();
-// 	currentTime = dateObject2.getTime();
+	var dateObject2 = new Date();
+	currentTime = dateObject2.getTime();
 	
-//   //controls movement, sends uup and down commands
-// 	if(currentTime - lastActionTime > 1500) {
-// 		if( (tempvar_y > 500) && (tempvar_y < 650)) {
-// 			returnedToCenter = true;
-// 			console.log("center");
-// 			}
-// 		if(returnedToCenter) {
-// 			if(tempvar_y > 800){
-// 			  toastr.success( "Down command recieved." );
-//         sendCmd(window.location.href, "down");
-// 				lastActionTime = dateObject2.getTime();
-// 				returnedToCenter = false;
-// 			}else if(tempvar_y < 400){
-// 				toastr.success( "Up command recieved." );
-// 				lastActionTime = dateObject2.getTime();
-// 				sendCmd(window.location.href, "up");
-// 				returnedToCenter = false;
-// 			}else{
-// 				//console.log ( tempvar_y_diff );
-// 			}
-// 		}
-// 	}
+  //controls movement, sends uup and down commands
+	if(currentTime - lastActionTime > 1500) {
+		if( (tempvar_y > 500) && (tempvar_y < 650)) {
+			returnedToCenter = true;
+			console.log("center");
+			}
+		if(returnedToCenter) {
+			if(tempvar_y > 800){
+			  toastr.success( "Down command recieved." );
+        sendCmd(window.location.href, "down");
+				lastActionTime = dateObject2.getTime();
+				returnedToCenter = false;
+			}else if(tempvar_y < 400){
+				toastr.success( "Up command recieved." );
+				lastActionTime = dateObject2.getTime();
+				sendCmd(window.location.href, "up");
+				returnedToCenter = false;
+			}else{
+				//console.log ( tempvar_y_diff );
+			}
+		}
+	}
 	
-//   })
+  })
  
-//   var clientOrigin = {
-//     left: window.screenLeft,
-//     top: window.screenTop
-//   }
+  var clientOrigin = {
+    left: window.screenLeft,
+    top: window.screenTop
+  }
 
-//   document.onmousemove = function(event) {
-//     clientOrigin.left = event.screenX - event.clientX
-//     clientOrigin.top = event.screenY - event.clientY
-//   }
+  document.onmousemove = function(event) {
+    clientOrigin.left = event.screenX - event.clientX
+    clientOrigin.top = event.screenY - event.clientY
+  }
 
-//   function locateEyeImage(image, eye) {
-//     if (eye.pupilSize) {
-//       locateElement(image, eye.average);
-//     } else {
-//       image.style.display = 'none';
-//     }
-//   }
+  function locateEyeImage(image, eye) {
+    if (eye.pupilSize) {
+      locateElement(image, eye.average);
+    } else {
+      image.style.display = 'none';
+    }
+  }
 
-// 	function generateEventy(eye){
-// 		if (eye.pupilSize) {
-// 			var position = eye.average;
-// 			return (position.y);
-// 		  } else {
-// 		  return 0;
-// 		}
-// 	}
+	function generateEventy(eye){
+		if (eye.pupilSize) {
+			var position = eye.average;
+			return (position.y);
+		  } else {
+		  return 0;
+		}
+	}
 
-// 	function generateEventx(eye){
-// 		if (eye.pupilSize) {
-// 			var position = eye.average;
-// 			return (position.x);
-// 		  } else {
-// 		  return 0;
-// 		}
-// 	}
+	function generateEventx(eye){
+		if (eye.pupilSize) {
+			var position = eye.average;
+			return (position.x);
+		  } else {
+		  return 0;
+		}
+	}
 	
-//   function locateCursor(frame) {
-//     if (frame.isFixated) {
-//       locateElement(cursor, frame.average)
-//     } else {
-//       cursor.style.display = 'none';
-//     }
-//   }
+  function locateCursor(frame) {
+    if (frame.isFixated) {
+      locateElement(cursor, frame.average)
+    } else {
+      cursor.style.display = 'none';
+    }
+  }
 
-//   function locateElement(element, position) {
-//     element.style.display = 'block';
-//     element.style.left = (position.x - clientOrigin.left - element.clientWidth / 2) + 'px';
-//     element.style.top = (position.y - clientOrigin.top - element.clientHeight / 2) + 'px';
-//   }
+  function locateElement(element, position) {
+    element.style.display = 'block';
+    element.style.left = (position.x - clientOrigin.left - element.clientWidth / 2) + 'px';
+    element.style.top = (position.y - clientOrigin.top - element.clientHeight / 2) + 'px';
+  }
 
-// })();
+})();
 
 });

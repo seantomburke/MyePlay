@@ -1,3 +1,7 @@
+exports.root = function(req, res) {
+  res.redirect('/index');
+}
+
 exports.view = function(req, res) {
 	res.render('index');
 }

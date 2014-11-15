@@ -21,7 +21,7 @@ app.use(express.session({ secret: 'feed me' }));
 app.use(passport.session());
 
 //routes
-app.get('/', index.view);
+app.get('/', index.root);
 app.get('/index', index.view);
 app.get('/video/:id', index.video);
 
