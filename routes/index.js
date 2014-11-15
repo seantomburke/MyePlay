@@ -3,5 +3,6 @@ exports.view = function(req, res) {
 }
 
 exports.video = function(req, res) {
-  res.render('video');
+  console.log("Request recieved for youtube video id " + req.params.id);
+  res.render('video', {videoId: req.params.id});
 }

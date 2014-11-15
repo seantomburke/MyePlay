@@ -22,7 +22,8 @@ app.use(passport.session());
 
 //routes
 app.get('/', index.view);
-app.get('/video', index.video);
+app.get('/index', index.view);
+app.get('/video/:id', index.video);
 
 //set environment ports and start application
 app.set('port', process.env.PORT || 2014);
