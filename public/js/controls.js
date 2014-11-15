@@ -1,4 +1,21 @@
 videojs.options.flash.swf = "video-js.swf";
+
+toastr.options = {
+  "closeButton": false,
+  "debug": false,
+  "progressBar": false,
+  "positionClass": "toast-top-right",
+  "onclick": null,
+  "showDuration": "100",
+  "hideDuration": "1000",
+  "timeOut": "1000",
+  "extendedTimeOut": "1000",
+  "showEasing": "swing",
+  "hideEasing": "linear",
+  "showMethod": "fadeIn",
+  "hideMethod": "fadeOut"
+};
+
 $(document).ready(function(){
   var currentlyPlaying = true;
   $(document).keydown(function(e){
@@ -31,7 +48,7 @@ $(document).ready(function(){
   });
 
 
-
+/** Eyetribe movement algorithms **/
 (function() {
   var leftEye;
   var rightEye;
@@ -106,7 +123,7 @@ $(document).ready(function(){
 			}
 		if(returnedToCenter) {
 			if(tempvar_y > 800){
-				console.log ( "Down" );
+				  toastr.success( "Down command recieved." );
 				  currentlyPlaying = !currentlyPlaying;
 				  if (!currentlyPlaying) {
 					videojs.players["video"].pause();
@@ -116,9 +133,8 @@ $(document).ready(function(){
 				lastActionTime = dateObject2.getTime();
 				returnedToCenter = false;
 			}else if(tempvar_y < 400){
-				console.log ( "Up" );
+				toastr.success( "Up command recieved." );
 				lastActionTime = dateObject2.getTime();
-				
 				
 				returnedToCenter = false;
 			}else{
@@ -128,8 +144,6 @@ $(document).ready(function(){
 	}
 	
   })
-
-
  
   var clientOrigin = {
     left: window.screenLeft,
