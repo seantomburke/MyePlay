@@ -24,13 +24,14 @@ $(document).ready(function(){
   var sendCmd = function(url, inputType) {
     //if on video page, send video command
     if(url.indexOf("video") > -1) {
-      if (inputType == "down") {
+      if (inputType == "space") {
         currentlyPlaying = !currentlyPlaying;
         if (!currentlyPlaying) {
         videojs.players["video"].pause();
         } else {
         videojs.players["video"].play();
         }
+
       } else if (inputType == "up") {
         if (!window.location.origin) {
         window.location.origin = window.location.protocol+"//"+window.location.host;
@@ -38,6 +39,7 @@ $(document).ready(function(){
 
        window.location.href = window.location.origin + "/index";
       }
+
     } 
 
     //move cards up and down
@@ -47,7 +49,7 @@ $(document).ready(function(){
       } else if (inputType == "up") {
         impress().prev();
       } else if (inputType == "space") {
-        alert("space");
+       // alert("space");
         console.log($('.active a'));
         $('.active a').click();
       }
@@ -142,6 +144,10 @@ $(document).ready(function(){
 			if (eyeClosedTime == 0) 
 				eyeClosedTime = currentTime3;
 			if( (currentTime3 - eyeClosedTime > 2000) && (isReopened == true) ) {
+				toastr.success( "Space command recieved." );
+			    sendCmd(window.location.href, "space");
+
+				
 				isReopened = false;
 				currentlyPlaying = !currentlyPlaying;
 				if (!currentlyPlaying) {
@@ -172,12 +178,12 @@ $(document).ready(function(){
 		if( (tempvar_y > 500) && (tempvar_y < 650)) {
 			returnedToCenter = true;
 			console.log("center");
-			}
+			} 
 		if(returnedToCenter) {
 			if(tempvar_y > 800){
 
-			  toastr.success( "Down command recieved." );
-        sendCmd(window.location.href, "down");
+			  //toastr.success( "Down command recieved." );
+			  //sendCmd(window.location.href, "down");
 
 				console.log ( "Down" );
 				
