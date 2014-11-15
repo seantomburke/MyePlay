@@ -49,9 +49,7 @@ $(document).ready(function(){
       } else if (inputType == "up") {
         impress().prev();
       } else if (inputType == "space") {
-       // alert("space");
-        console.log($('.active a'));
-        $('.active a').click();
+        $('.active').find("a")[0].click();
       }
     } 
   };
