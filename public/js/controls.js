@@ -31,8 +31,12 @@ $(document).ready(function(){
         } else {
         videojs.players["video"].play();
         }
-      } else if (intputType == "up") {
-        console.log("up");
+      } else if (inputType == "up") {
+        if (!window.location.origin) {
+        window.location.origin = window.location.protocol+"//"+window.location.host;
+       }
+
+       window.location.href = window.location.origin + "/index";
       }
     } 
 
@@ -44,7 +48,8 @@ $(document).ready(function(){
         impress().prev();
       } else if (inputType == "space") {
         alert("space");
-        $('.step.slide.active.present').click();
+        console.log($('.active a'));
+        $('.active a').click();
       }
     } 
   };
