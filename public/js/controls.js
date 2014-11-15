@@ -83,15 +83,18 @@ $(document).ready(function(){
 
    var tempvar_y_diff=0;
   
-   var old_y = "";
-   var iter =0;
-   var tempvar_y = 0;
-   var dateObject = new Date();
-   var lastActionTime = dateObject.getTime();
-   var currentTime = dateObject.getTime();
-   var returnedToCenter = false;
-  
- 	var currentlyPlaying = true;
+
+  var old_y = "";
+  var iter =0;
+  var tempvar_y = 0;
+  var dateObject = new Date();
+  var lastActionTime = dateObject.getTime();
+  var currentTime = dateObject.getTime();
+  var returnedToCenter = false;
+  var eyeClosedTime = 0;
+  var currentlyPlaying = true;
+  var isReopened = true;
+
 	
    EyeTribe.loop(function(frame) {
   
@@ -111,27 +114,43 @@ $(document).ready(function(){
 	leftEye_y = generateEventy(frame.leftEye);
  	leftEye_x = generateEventx(frame.leftEye);
 	
- 	var myAverage_y = 650;
- 	if (rightEye_y != 0 && leftEye_y != 0){
-   		myAverage_y = (rightEye_y + leftEye_y)/2;
- 	}
- 	else{
- 		if(rightEye_y != 0)
- 			myAverage_y = rightEye_y;
- 		else if(leftEye_y != 0)
- 			myAverage_y = leftEye_y;
- 	}
+
+	var dateObject3 = new Date();
+	currentTime3 = dateObject3.getTime();
+	
+	var myAverage_y = 650;
+	if (rightEye_y != 0 && leftEye_y != 0){
+		myAverage_y = (rightEye_y + leftEye_y)/2;
+	}
+	else{
+		if(rightEye_y != 0) {
+			myAverage_y = rightEye_y;
+			eyeClosedTime = 0;
+			isReopened = true;
+		}
+		else if(leftEye_y != 0) {
+			myAverage_y = leftEye_y;
+			eyeClosedTime = 0;
+			isReopened = true;
+		}
+		else {
+			if (eyeClosedTime == 0) 
+				eyeClosedTime = currentTime3;
+			if( (currentTime3 - eyeClosedTime > 2000) && (isReopened == true) ) {
+				isReopened = false;
+				currentlyPlaying = !currentlyPlaying;
+				if (!currentlyPlaying) {
+					videojs.players["video"].pause();
+				} else {
+					videojs.players["video"].play();
+				}
+				eyeClosedTime = 0;
+			}
+		}
+	}
+
 	
  	tempvar_y = (tempvar_y + myAverage_y)/2;
-	
-	
- 	/*if(old_y == ""){
- 		old_y = tempvar_y;	
- 	}*/
-	
- 	//tempvar_y_diff =  tempvar_y_diff + (old_y - tempvar_y);
-	
- 	//old_y = tempvar_y;
 	
 	if(iter = 200) {
   		//console.log(tempvar_y);
@@ -151,8 +170,12 @@ $(document).ready(function(){
 			}
 		if(returnedToCenter) {
 			if(tempvar_y > 800){
+
 			  toastr.success( "Down command recieved." );
         sendCmd(window.location.href, "down");
+
+				console.log ( "Down" );
+				
 				lastActionTime = dateObject2.getTime();
 				returnedToCenter = false;
 			}else if(tempvar_y < 400){
