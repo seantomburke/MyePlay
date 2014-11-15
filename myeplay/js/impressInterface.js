@@ -17,29 +17,47 @@ var radius = 500;
 
 
 //create the slides and initiate impress
+var results;
+var videoIdArray = [];
 
 var istart = function(){
+  var id = 100;
 
-    var id = 100;
-    
-    createSlide(++id, 0, radius, 0*45, "<a href='video.html'><img src='http://img.youtube.com/vi/xYemnKEKx0c/mqdefault.jpg'></a>");
-    createSlide(++id, 0, radius, 1*45, "<a href='game.html'>Games</a>");
-    createSlide(++id, 0, radius, 2*45, "<a href='quit.html'>Quit</a>");
-    // createSlide(++id, 0, radius, 3*45, id);
-    // createSlide(++id, 0, radius, 4*45, id);
-    // createSlide(++id, 0, radius, 5*45, id);
-    // createSlide(++id, 0, radius, 6*45, id);
-    // createSlide(++id, 0, radius, 7*45, id);
+  //cat videos!
+  $.get( "https://www.googleapis.com/youtube/v3/search?part=snippet&q=cat&type=video&key=AIzaSyBO3mcDdOXKZ-iIEXOeUuOtTEuQtNnHx2g&maxResults=20"
+  , function( data ) {
+    results = data.items;
+  })
+  .done(function() {
+    for(var i = 0; i < results.length; i++) {
+        var videoId = results[i].id.videoId;
+        videoIdArray.push(videoId);
+    }
+      
+      // createSlide(++id, 0, radius, 0*45, "<a href='video.html'><img src='http://img.youtube.com/vi/xYemnKEKx0c/mqdefault.jpg'></a>");
+      // createSlide(++id, 0, radius, 1*45, "<a href='game.html'>Games</a>");
+      // createSlide(++id, 0, radius, 2*45, "<a href='quit.html'>Quit</a>");
+      // createSlide(++id, 0, radius, 3*45, id);
+      // createSlide(++id, 0, radius, 4*45, id);
+      // createSlide(++id, 0, radius, 5*45, id);
+      // createSlide(++id, 0, radius, 6*45, id);
+      // createSlide(++id, 0, radius, 7*45, id);
 
+      //loop through and put placeholder images
+      var j = 0;
+      var z = 0;
+      for(var i=0; i<videoIdArray.length; i++){
+          if (j == 8) {
+            j = 0;
+            z++;
+          }
+          j++;
+          createSlide(++id, z, radius, j*45, "<a href='video.html'><img src='http://img.youtube.com/vi/" + videoIdArray[i] + "/mqdefault.jpg'></a>");
+          
+      }
 
-    //loop through and put placeholder images
-    // for(var i=1;i<5;i++){
-    //     for(var j=0;j<8;j++){
-    //         createSlide(++id, i, radius, j*45, "test " + id,"http://lorempixel.com/400/400/?v="+id);
-    //     }
-    // }
-
-    impress().init();
+      impress().init();
+  });
 }
 
 var iclear = function(){
