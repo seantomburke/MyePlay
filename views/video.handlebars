@@ -4,16 +4,16 @@
   <title>Video.js | HTML5 Video Player</title>
 
   <!-- Chang URLs to wherever Video.js files will be hosted -->
-  <link href="css/video-js.css?version=1.0.0" rel="stylesheet" type="text/css">
-  <link href="css/myeplay.css?version=1.0.0" rel="stylesheet" type="text/css">
-  <link href="css/bootstrap.css?version=1.0.0" rel="stylesheet" type="text/css">
+  <link href="/css/video-js.css" rel="stylesheet" type="text/css">
+  <link href="/css/myeplay.css" rel="stylesheet" type="text/css">
+  <link href="/css/bootstrap.css" rel="stylesheet" type="text/css">
   <!-- video.js must be in the <head> for older IEs to work. -->
-  <script src="js/video.js?version=1.0.0"></script>
-  <script src="js/vjs.youtube.js"></script>
-  <script src="js/jquery.js?version=1.0.0"></script>
-  <script src="js/bootstrap.js?version=1.0.0"></script>
 
-  <script src="js/mediaPlayer.js"></script>
+  <script src="/js/jquery.js"></script>
+  <script src="/js/bootstrap.js"></script>
+  <script src="/js/video.js"></script>
+  <script src="/js/vjs.youtube.js"></script>
+  <script src="/js/mediaPlayer.js"></script>
   <!-- Unless using the CDN hosted version, update the URL to the Flash SWF -->
 </head>
 <body>
@@ -26,7 +26,7 @@
 	  width="100%" 
 	  height="600"
 		poster=""
-	  data-setup='{"techOrder":["youtube"], "src":"http://www.youtube.com/watch?v=xYemnKEKx0c"}'>
+	  data-setup='{"techOrder":["youtube"], "src":"http://www.youtube.com/watch?v={{videoId}}"}'>
   </video>
   
   <div class="menu" style="display:none;">

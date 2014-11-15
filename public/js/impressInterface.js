@@ -52,7 +52,7 @@ var istart = function(){
             z++;
           }
           j++;
-          createSlide(++id, z, radius, j*45, "<a href='/video'><img src='http://img.youtube.com/vi/" + videoIdArray[i] + "/mqdefault.jpg'></a>");
+          createSlide(++id, z, radius, j*45, "<a href='/video/" + videoIdArray[i] + "'><img src='http://img.youtube.com/vi/" + videoIdArray[i] + "/mqdefault.jpg'></a>");
           
       }
 
