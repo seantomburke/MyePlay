@@ -15,7 +15,6 @@ var createSlide = function(id,x,radius,angle,html,image){
 
 var radius = 500;
 
-
 //create the slides and initiate impress
 var results;
 var videoIdArray = [];
