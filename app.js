@@ -24,6 +24,8 @@ app.use(passport.session());
 app.get('/', index.root);
 app.get('/index', index.view);
 app.get('/video/:id', index.video);
+app.get('/game', index.game);
+app.get('/pong', index.pong);
 
 //set environment ports and start application
 app.set('port', process.env.PORT || 2014);
