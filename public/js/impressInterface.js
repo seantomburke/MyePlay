@@ -44,13 +44,11 @@ var istart = function(){
       // createSlide(++id, 0, radius, 7*45, id);
 
       //loop through and put placeholder images
-      var j = 0;
+      var j = 1;
       var z = 0;
+      createSlide("video", z, radius, j*45, "Videos");
       for(var i=0; i<videoIdArray.length; i++){
-          if (j == 8) {
-            j = 0;
-            z++;
-          }
+          z += 100;
           j++;
           createSlide(++id, z, radius, j*45, "<a href='/video/" + videoIdArray[i] + "'><img src='http://img.youtube.com/vi/" + videoIdArray[i] + "/mqdefault.jpg'></a>");
           
