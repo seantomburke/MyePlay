@@ -6,13 +6,13 @@
     "start": "node app.js"
   },
   "dependencies": {
-    "dotenv": "^0.4.0",
-    "express": "^3.18.3",
-    "express-handlebars": "^1.1.0",
-    "nodemon": "^1.2.1",
-    "passport": "^0.2.1"
+    "express": "3.x",
+    "express3-handlebars": "*",
+    "passport": "*",
+    "dotenv": "*",
+    "nodemon": "*"
   },
   "engines": {
     "node": "0.10.x"
-  }
+  }  
 }
