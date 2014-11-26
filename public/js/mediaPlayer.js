@@ -210,7 +210,7 @@ $(document).ready(function(){
     else {
       $("#volumeback-button").html("" + secondsVolBack + "." + --milliVolBack);
     }
-  }
+  };
 
   var modalTimerVolDown = function(e) {
     console.log("modaltimer volDowncalled")
@@ -227,7 +227,7 @@ $(document).ready(function(){
     else {
       $("#volumedown-button").html("" + secondsVolDown + "." + --milliVolDown);
     }
-  }
+  };
 
   $("#volumeup-button").on("mouseover", function(e) {
     isHoverVolUp = true;

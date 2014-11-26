@@ -35,6 +35,28 @@
             }
         };
 
+        //usage 
+        // var event = new Event("myeplay-stream-up");
+        // event.value = 10;
+        // document.dispatchEvent(event);
+        
+        document.addEventListener("myeplay-stream-up",function(e){
+            console.log(e);
+            // game.players.a.move(e.value);
+            game.players.a.move(-1);
+        },false);
+
+        document.addEventListener("myeplay-stream-down",function(e){
+            console.log(e);
+            // game.players.a.move(e.value);
+            game.players.a.move(1);
+        },false);
+
+        document.addEventListener("myeplay-close",function(e){
+            console.log(e);
+            game.pause();
+        },false);
+
         window.onkeyup = function (e) {
             if (keyCodes.hasOwnProperty(e.keyCode)) {
                 window.gameEvents.key[keyCodes[e.keyCode]] = false;
