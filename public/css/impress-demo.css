@@ -700,4 +700,13 @@ a:focus {
     for you.
 */
 
+#cursor{
+	-web-kit-transition: top .1s;
+	transition: top .1s;
+}
+
+#cursor2{
+	-web-kit-transition: top .1s;
+	transition: top .1s;
+}
 

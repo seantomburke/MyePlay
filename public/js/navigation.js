@@ -69,9 +69,64 @@ document.addEventListener("mouseleave", function ( event ) {
 
 onmousemove = function(event){
     var timer = $("#timer");
-    timer.css("position", "absolute");
+    //timer.css("position", "absolute");
+    //timer.css("top", (event.y -50) + "px");
+    //timer.css("left", (event.x- 50) + "px");
+}
+
+document.addEventListener("myeplay-live-position", function(event){
+	var timer = $("#timer");
+	timer.css("position", "absolute");
     timer.css("top", (event.y -50) + "px");
     timer.css("left", (event.x- 50) + "px");
-}
+})
+
+document.addEventListener("myeplay-action-up", function(event){
+	circle.duration = duration;
+        circle.animate(1,
+            {
+                from: {color: "#FC5B3F"},
+                to: {color: "#6FD57F"}
+            }, 
+            function(){
+                circle.set(0);
+            }
+        );
+
+        timeout = setTimeout(function(){
+            if ( impress().next() ) {
+                event.preventDefault();
+            }
+        }, duration);
+		
+});
+
+document.addEventListener("myeplay-action-down", function(event){
+
+		circle.duration = duration;
+        circle.animate(1,
+            {
+                from: {color: "#FC5B3F"},
+                to: {color: "#6FD57F"}
+            }, 
+            function(){
+                circle.set(0);
+            }
+        );
+
+        timeout = setTimeout(function(){
+            if ( impress().prev() ) {
+                event.preventDefault();
+            }
+        }, duration);
+
+});
+
+document.addEventListener("myeplay-stream-center", function(event){
+    circle.set(0);
+    clearTimeout(timeout);
+    event.preventDefault();
+
+});
 
 
