@@ -15,7 +15,7 @@ toastr.options = {
   "showMethod": "fadeIn",
   "hideMethod": "fadeOut"
 };
-
+//TODO: get rid of sendcmd, the control algorithm should send keypresses, in each of our module we accept those keypresses and call the corresponding functions, this way we can trigger the pong controls without any modification
 $(document).ready(function(){
 
   var currentlyPlaying = true;
@@ -52,6 +52,18 @@ $(document).ready(function(){
         $('.active').find("a")[0].click();
       }
     } 
+
+    //move cards up and down
+    if (url.indexOf("pong") > -1) {
+      if (inputType == "down") {
+        //move p1 paddle down
+
+      } else if (inputType == "up") {
+        //move p1 paddle up
+      } else if (inputType == "space") {
+        //start game
+      }
+    } 
   };
   
   $(document).keydown(function(e){
@@ -60,7 +72,6 @@ $(document).ready(function(){
 
     //goes back
     if (e.which == 38) { // 38 is the up arrow key code.
-       e.stopPropagation();
       sendCmd(window.location.href, "up");
     };
 
@@ -70,7 +81,6 @@ $(document).ready(function(){
 
     //toggles pause and play
     if (e.which == 40) { // 40 is the down arrow key code.
-       e.stopPropagation();
       sendCmd(window.location.href, "down");
     };
 
@@ -138,7 +148,6 @@ $(document).ready(function(){
 	var lower_threshold = 900;
 	
 	EyeTribe.loop(function(frame) {
-	
 	
 		var leftEye_y = frame.leftEye.average.y;
 		var rightEye_y = frame.rightEye.average.x;
