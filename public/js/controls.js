@@ -197,31 +197,35 @@ $(document).ready(function(){
 		else{
 			document.dispatchEvent(myeplayStreamCenterEvent);
 			state = 0;
-			//console.log("myeplayStreamCenterEvent");
+			console.log("myeplayStreamCenterEvent");
 		}
 		
-		if (state != previous_state){
-			if(state==0) {
-				if(previous_state==1){
+		console.log(state, "==", previous_state);
+		
+		if (state !== previous_state){
+			if(state===0) {
+				if(previous_state===1){
+					
+				}
+				else if(previous_state===-1){
+					
+				}
+			}
+			else if(state===1) {
+				if(previous_state===0){
 					document.dispatchEvent(myeplayActionUpEvent);
 					console.log("up action");
 				}
-				else if(previous_state==-1){
+			}
+			else if(state===-1) {
+				if(previous_state===0){
 					document.dispatchEvent(myeplayActionDownEvent);
 					console.log("down action");
 				}
 			}
-			else if(state==1) {
-				if(previous_state==0){
-				
-				}
-			}
-			else if(state==-1) {
-				if(previous_state==0){
-				
-				}
-			}
 		}
+		
+		previous_state = state;
 		
 		
 		// Set Gaze Location
