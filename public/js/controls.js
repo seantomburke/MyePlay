@@ -215,7 +215,7 @@ $(document).ready(function(){
 		else{
 			document.dispatchEvent(myeplayStreamCenterEvent);
 			state = 0;
-			console.log("myeplayStreamCenterEvent");
+			//console.log("myeplayStreamCenterEvent");
 		}
 		
 		console.log(state, "==", previous_state);

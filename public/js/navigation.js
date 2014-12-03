@@ -97,7 +97,7 @@ document.addEventListener("myeplay-action-up", function(event){
             if ( impress().next() ) {
                 event.preventDefault();
             }
-        }, duration);
+        }, 0);
 		
 });
 
@@ -118,13 +118,13 @@ document.addEventListener("myeplay-action-down", function(event){
             if ( impress().prev() ) {
                 event.preventDefault();
             }
-        }, duration);
+        }, 0);
 
 });
 
 document.addEventListener("myeplay-stream-center", function(event){
     circle.set(0);
-    clearTimeout(timeout);
+    //clearTimeout(timeout);
     event.preventDefault();
 
 });
