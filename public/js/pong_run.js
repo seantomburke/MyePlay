@@ -40,11 +40,14 @@
         // event.value = 10;
         // document.dispatchEvent(event);
 
+        var menuOpen = false;
+
         document.addEventListener("myeplay-stream-up",function(e){
             console.log(e);
             // game.players.a.move(e.value);
             game.players.a.move(-5);
         },false);
+
 
         document.addEventListener("myeplay-stream-down",function(e){
             console.log(e);
@@ -52,9 +55,36 @@
             game.players.a.move(5);
         },false);
 
-        document.addEventListener("myeplay-close",function(e){
+        //var up = new Event("myeplay-action-up");
+        //document.dispatchEvent(up);
+        document.addEventListener("myeplay-action-up",function(e){
             console.log(e);
-            game.pause();
+            // game.players.a.move(e.value);
+            if(menuOpen) {
+              game.resume();
+              $("#menu").modal('hide');
+              menuOpen = false;
+            } 
+        },false);
+
+        //var down = new Event("myeplay-action-down");
+        //document.dispatchEvent(down);
+        document.addEventListener("myeplay-action-down",function(e){
+            console.log(e);
+            // game.players.a.move(e.value);
+            if(menuOpen) {
+                window.location.href="/index";
+            } 
+        },false);
+
+        // var close = new Event("myeplay-action-close");
+        // document.dispatchEvent(close);
+
+        document.addEventListener("myeplay-action-close",function(e){
+            console.log(e);
+            game.pause(); 
+            $("#menu").modal('show');
+            menuOpen = true;
         },false);
 
         window.onkeyup = function (e) {

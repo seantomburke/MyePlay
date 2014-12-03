@@ -53,6 +53,10 @@ var istart = function(){
       var j = 1;
       var z = 0;
 
+      createSlide("Pong", z, radius, j*45, "<a href='/pong'><div id='title'>Pong</div> <br>Here is a 2-player pong game.</a>");
+
+      j++;
+
       createSlide("video", z, radius, j*45, "<div id='title'>Videos</div> <br>look up to get the bottom option, and look up for vice versa.  close eyes for two seconds to enter video.");
       for(var i=0; i<videoObjArray.length; i++){
           z += 50;
