@@ -5,9 +5,9 @@ launchPong(function () {
     }
     
     
-    pongSettings.ball.size = 15;
+    pongSettings.ball.size = 30;
     pongSettings.ball.color = colour_random();
-    pongSettings.ball.velocity[0] = 15;
-    pongSettings.ball.velocity[1] = 15;
+    pongSettings.ball.velocity[0] = 10;
+    pongSettings.ball.velocity[1] = 10;
     
 }, false);

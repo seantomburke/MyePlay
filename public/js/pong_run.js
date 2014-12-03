@@ -39,17 +39,17 @@
         // var event = new Event("myeplay-stream-up");
         // event.value = 10;
         // document.dispatchEvent(event);
-        
+
         document.addEventListener("myeplay-stream-up",function(e){
             console.log(e);
             // game.players.a.move(e.value);
-            game.players.a.move(-1);
+            game.players.a.move(-5);
         },false);
 
         document.addEventListener("myeplay-stream-down",function(e){
             console.log(e);
             // game.players.a.move(e.value);
-            game.players.a.move(1);
+            game.players.a.move(5);
         },false);
 
         document.addEventListener("myeplay-close",function(e){
@@ -86,15 +86,18 @@
     }
 
     function setDefaults () {
+
+
+
         window.pongSettings = {
-            width: 800,
-            height: 440,
+            width: window.innerWidth,
+            height: window.innerHeight,
             backgroundColor: '#222222',
             linesColor: '#eeeeee',
             ball: {
                 size: 13,
-                //speed: 200,
-                velocity: [ 15, 15 ],
+                //speed: 10,
+                velocity: [ 300, 300],
                 color: '#eeeeee',
             },
             font: {
@@ -105,8 +108,8 @@
                 color: '#eeeeee'
             },
             players: {
-                a: { height: 100, color: '#eeeeee', speed: 350 },
-                b: { height: 100, color: '#eeeeee', speed: 350 }
+                a: { height: 250, color: '#eeeeee', speed: 250 },
+                b: { height: 250, color: '#eeeeee', speed: 250 }
             },
             botDir: null,
             botCounter: 0,
@@ -205,7 +208,6 @@
         game.setBallColor(window.pongSettings.ball.color);
         game.setBallSize(window.pongSettings.ball.size);
         game.setBallVelocity(window.pongSettings.ball.velocity);
-        title.innerHTML = window.pongSettings.title;
 
         game.setTextStyle({
             font: font,
