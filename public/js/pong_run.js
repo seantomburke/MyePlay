@@ -39,17 +39,17 @@
         // var event = new Event("myeplay-stream-up");
         // event.value = 10;
         // document.dispatchEvent(event);
-        
+
         document.addEventListener("myeplay-stream-up",function(e){
             console.log(e);
             // game.players.a.move(e.value);
-            game.players.a.move(-1);
+            game.players.a.move(-5);
         },false);
 
         document.addEventListener("myeplay-stream-down",function(e){
             console.log(e);
             // game.players.a.move(e.value);
-            game.players.a.move(1);
+            game.players.a.move(5);
         },false);
 
         document.addEventListener("myeplay-close",function(e){
@@ -93,8 +93,8 @@
             linesColor: '#eeeeee',
             ball: {
                 size: 13,
-                //speed: 200,
-                velocity: [ 15, 15 ],
+                //speed: 10,
+                velocity: [ 150, 300],
                 color: '#eeeeee',
             },
             font: {
@@ -105,8 +105,8 @@
                 color: '#eeeeee'
             },
             players: {
-                a: { height: 100, color: '#eeeeee', speed: 350 },
-                b: { height: 100, color: '#eeeeee', speed: 350 }
+                a: { height: 150, color: '#eeeeee', speed: 250 },
+                b: { height: 150, color: '#eeeeee', speed: 250 }
             },
             botDir: null,
             botCounter: 0,
