@@ -101,7 +101,9 @@ $(document).ready(function(){
    var myeplayActionUpEvent = new Event("myeplay-action-up");
    var myeplayActionDownEvent = new Event("myeplay-action-down");
    var myeplayLivePosition = new Event("myeplay-live-position");
-
+   var myeplayActionClose = new Event("myeplay-action-close");
+   var myeplayLiveClose = new Event ("myeplay-live-close");
+   
 	function simple_moving_averager(period) {
 		var nums = [];
 		return function(num) {
@@ -139,33 +141,43 @@ $(document).ready(function(){
 	cursor2.style.height = "10px";
 	cursor2.style.width = "10px";
 	cursor2.style.position = "absolute";
-	document.body.appendChild(cursor2);
+	//document.body.appendChild(cursor2);
 	
 	// Main Loop
 	
 	
-	var upper_threshold = 500;
-	var lower_threshold = 900;
+	var upper_threshold = 300;
+	var lower_threshold = 600;
 
-	var upper_line = document.createElement("span");
+	var upper_line = document.createElement("div");
 	upper_line.id = "top-threshold";
+	upper_line.height = 5;
+	upper_line.width = "100%";
+	
 	upper_line.style.backgroundColor = "#DD3399";
 	upper_line.style.height = "5px";
 	upper_line.style.width = "100%";
-	upper_line.style.top = upper_threshold;
+	upper_line.style.top = upper_threshold + "px";
+	upper_line.style.position = "absolute";
 	document.body.appendChild(upper_line);
+	console.log(upper_line);
 
-	var lower_line = document.createElement("span");
-	lower_line.id = "top-threshold";
+	var lower_line = document.createElement("div");
+	lower_line.id = "bottom-threshold";
+	lower_line.height = 5;
+	lower_line.width = "100%";
 	lower_line.style.backgroundColor = "#DD3399";
 	lower_line.style.height = "5px";
 	lower_line.style.width = "100%";
-	lower_line.style.top = lower_threshold;
+	lower_line.style.top = lower_threshold + "px";
+	lower_line.style.position = "absolute";
 	document.body.appendChild(lower_line);
+	console.log(lower_line);
 
 
 	var state=0;
 	var previous_state = 0;
+	var iter = 0;
 	
 	EyeTribe.loop(function(frame) {
 	
@@ -176,12 +188,22 @@ $(document).ready(function(){
 		// Compute Average Depending on Eye Closed or Not
 		if (rightEye_y != 0 && leftEye_y != 0){
 			average_y = (rightEye_y + leftEye_y)/2;
+			iter = 0;
 		}else if (rightEye_y == 0 && leftEye_y != 0){
 			average_y = leftEye_y;
+			iter = 0;
 		}else if(rightEye_y != 0 && leftEye_y == 0){
 			average_y = rightEye_y;
+			iter = 0;
 		}else{
 			average_y = midpoint; 
+			iter ++;
+			//console.log("EyeCloseStream");
+			document.dispatchEvent(myeplayLiveClose);
+			if (iter === 20){
+				document.dispatchEvent(myeplayActionClose);
+				console.log("EyeCloseEvent");
+			}
 		}
 
 		// Calculate the moving average of current frame
@@ -202,12 +224,24 @@ $(document).ready(function(){
 		myeplayLivePosition.x = xposition;
 		document.dispatchEvent(myeplayLivePosition);
 		
-		if(current_y_sma < upper_threshold){
+		
+		
+		// Set Gaze Location
+		var cursor_y_position = (current_y_sma - 550) * (960/(1100 - 550));
+		cursor.style.top = cursor_y_position + 'px';
+		cursor.style.left= xposition+"px";
+		
+		var cursor2_y_position = (leftEye_y - 550) * (960/(1100 - 550));
+		cursor2.style.top = cursor2_y_position + 'px';
+		cursor2.style.left= 500+"px";
+		
+		if(cursor_y_position < upper_threshold){
+			
 			document.dispatchEvent(myeplayStreamUpEvent);
 			state = 1;
 			//console.log("myeplayStreamUpEvent");
 		}
-		else if( current_y_sma > lower_threshold){
+		else if( cursor_y_position > lower_threshold){
 			document.dispatchEvent(myeplayStreamDownEvent);
 			state = -1;
 			//console.log("myeplayStreamDownEvent");
@@ -245,15 +279,6 @@ $(document).ready(function(){
 		
 		previous_state = state;
 		
-		
-		// Set Gaze Location
-		var cursor_y_position = (current_y_sma - 550) * (960/(1100 - 550));
-		cursor.style.top = cursor_y_position + 'px';
-		cursor.style.left= xposition+"px";
-		
-		var cursor2_y_position = (leftEye_y - 550) * (960/(1100 - 550));
-		cursor2.style.top = cursor2_y_position + 'px';
-		cursor2.style.left= 500+"px";
 		
 		//console.log("Max: "+max+", Min: "+min+", Midpoint: ",midpoint,", Display_Y: " + current_y_sma + "Cursor_y:" + cursor_y_position, "leftEye_y", leftEye_y, "rightEye_y", rightEye_y);
   })

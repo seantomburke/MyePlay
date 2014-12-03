@@ -16,7 +16,7 @@ var circle = new ProgressBar.Circle('#timer', {
 
 // delegated handler for clicking on step elements
 document.addEventListener("mouseover", function ( event ) {
-    var target = event.target;
+    /* var target = event.target;
     // find closest step element that is not active
     //console.log(target.classList);
     if( (target.classList.contains("step") && !target.classList.contains("active"))) {
@@ -37,7 +37,7 @@ document.addEventListener("mouseover", function ( event ) {
                 event.preventDefault();
             }
         }, duration);
-    }
+    } */
     
 }, false);
 
@@ -82,7 +82,8 @@ document.addEventListener("myeplay-live-position", function(event){
 })
 
 document.addEventListener("myeplay-action-up", function(event){
-	circle.duration = duration;
+		impress().next();
+	/* circle.duration = duration;
         circle.animate(1,
             {
                 from: {color: "#FC5B3F"},
@@ -97,13 +98,14 @@ document.addEventListener("myeplay-action-up", function(event){
             if ( impress().next() ) {
                 event.preventDefault();
             }
-        }, 0);
+        }, 0); */
 		
 });
 
 document.addEventListener("myeplay-action-down", function(event){
 
-		circle.duration = duration;
+		impress().prev();
+		/* circle.duration = duration;
         circle.animate(1,
             {
                 from: {color: "#FC5B3F"},
@@ -118,7 +120,7 @@ document.addEventListener("myeplay-action-down", function(event){
             if ( impress().prev() ) {
                 event.preventDefault();
             }
-        }, 0);
+        }, 0); */
 
 });
 
@@ -127,6 +129,18 @@ document.addEventListener("myeplay-stream-center", function(event){
     //clearTimeout(timeout);
     event.preventDefault();
 
+});
+
+
+document.addEventListener("myeplay-action-close", function(event){
+    var active_slide = document.querySelector(".active");
+	console.log(active_slide);
+	var anchor = active_slide.querySelector("a");
+	console.log(anchor);
+	var link = anchor.getAttribute("href");
+	console.log(link);
+	window.location.replace(link);
+	
 });
 
 
