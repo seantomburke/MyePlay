@@ -97,7 +97,7 @@
             ball: {
                 size: 13,
                 //speed: 10,
-                velocity: [ 150, 300],
+                velocity: [ 300, 300],
                 color: '#eeeeee',
             },
             font: {
@@ -108,8 +108,8 @@
                 color: '#eeeeee'
             },
             players: {
-                a: { height: 180, color: '#eeeeee', speed: 250 },
-                b: { height: 180, color: '#eeeeee', speed: 250 }
+                a: { height: 250, color: '#eeeeee', speed: 250 },
+                b: { height: 250, color: '#eeeeee', speed: 250 }
             },
             botDir: null,
             botCounter: 0,
