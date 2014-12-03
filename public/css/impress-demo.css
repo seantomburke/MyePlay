@@ -118,7 +118,7 @@ a {
     transition:         0.5s;
 }
 
-a:hover,
+
 a:focus {
     background: rgb(255,255,255);
     /*text-shadow: -1px -1px 2px rgba(100,100,100,0.5);*/
@@ -218,7 +218,7 @@ a:focus {
     border-radius: 10px;
     box-shadow: 0 2px 6px rgba(255, 255, 255, .1);
 
-    color: #ffffff;/*change word color*/
+    color: #000000;/*change word color*/
     /*text-shadow: 0 2px 2px rgba(255, 255, 255, .1);*/
 
     font-family: 'Montserrat', 'Open Sans', sans-serif;
@@ -716,3 +716,11 @@ a:focus {
 }
 
 
+a{
+    text-decoration: none;
+    color:#444343;
+}
+
+.active a{
+    color:#ffffff;
+}
