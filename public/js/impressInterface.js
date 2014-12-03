@@ -45,11 +45,11 @@ var istart = function(){
       //loop through and put placeholder images
       var j = 1;
       var z = 0;
-      createSlide("video", z, radius, j*45, "Videos");
+      createSlide("video", z, radius, j*45, "<div id='title'>Videos</div> <br>look up to get the bottom option, and look up for vice versa.  close eyes for two seconds to enter video.");
       for(var i=0; i<videoIdArray.length; i++){
           z += 50;
           j++;
-          createSlide(++id, z, radius, j*45, "<a href='/video/" + videoIdArray[i] + "'><img src='http://img.youtube.com/vi/" + videoIdArray[i] + "/mqdefault.jpg'></a>");
+          createSlide(++id, z, radius, j*45, "<a href='/video/" + videoIdArray[i] + "'><img src='http://img.youtube.com/vi/" + videoIdArray[i] + "/mqdefault.jpg'></a><br>");
           
       }
       impress().init();

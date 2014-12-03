@@ -86,7 +86,7 @@ The default control bar that is a container for most of the controls.
   /* Height includes any margin you want above or below control items */
   height: 3.0em;
   /* background-color-with-alpha */
-  background-color: #07141e;
+  background-color: #000000;
   background-color: rgba(7, 20, 30, 0.7);
 }
 /* Show the control bar only once the video has started playing */
