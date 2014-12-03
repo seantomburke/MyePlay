@@ -146,13 +146,15 @@ $(document).ready(function(){
 	
 	var upper_threshold = 500;
 	var lower_threshold = 900;
+	var state=0;
+	var previous_state = 0;
 	
 	EyeTribe.loop(function(frame) {
 	
 		var leftEye_y = frame.leftEye.average.y;
 		var rightEye_y = frame.rightEye.average.x;
 		var average_y;
-	
+		
 		// Compute Average Depending on Eye Closed or Not
 		if (rightEye_y != 0 && leftEye_y != 0){
 			average_y = (rightEye_y + leftEye_y)/2;
@@ -184,18 +186,42 @@ $(document).ready(function(){
 		
 		if(current_y_sma < upper_threshold){
 			document.dispatchEvent(myeplayStreamUpEvent);
-			console.log("myeplayStreamUpEvent");
+			state = 1;
+			//console.log("myeplayStreamUpEvent");
 		}
 		else if( current_y_sma > lower_threshold){
 			document.dispatchEvent(myeplayStreamDownEvent);
-			console.log("myeplayStreamDownEvent");
+			state = -1;
+			//console.log("myeplayStreamDownEvent");
 		}
 		else{
 			document.dispatchEvent(myeplayStreamCenterEvent);
-			console.log("myeplayStreamCenterEvent");
+			state = 0;
+			//console.log("myeplayStreamCenterEvent");
 		}
 		
-		
+		if (state != previous_state){
+			if(state==0) {
+				if(previous_state==1){
+					document.dispatchEvent(myeplayActionUpEvent);
+					console.log("up action");
+				}
+				else if(previous_state==-1){
+					document.dispatchEvent(myeplayActionDownEvent);
+					console.log("down action");
+				}
+			}
+			else if(state==1) {
+				if(previous_state==0){
+				
+				}
+			}
+			else if(state==-1) {
+				if(previous_state==0){
+				
+				}
+			}
+		}
 		
 		
 		// Set Gaze Location
