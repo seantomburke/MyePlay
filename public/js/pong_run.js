@@ -86,9 +86,12 @@
     }
 
     function setDefaults () {
+
+
+
         window.pongSettings = {
-            width: 800,
-            height: 440,
+            width: window.innerWidth,
+            height: window.innerHeight,
             backgroundColor: '#222222',
             linesColor: '#eeeeee',
             ball: {
@@ -105,8 +108,8 @@
                 color: '#eeeeee'
             },
             players: {
-                a: { height: 150, color: '#eeeeee', speed: 250 },
-                b: { height: 150, color: '#eeeeee', speed: 250 }
+                a: { height: 180, color: '#eeeeee', speed: 250 },
+                b: { height: 180, color: '#eeeeee', speed: 250 }
             },
             botDir: null,
             botCounter: 0,
@@ -205,7 +208,6 @@
         game.setBallColor(window.pongSettings.ball.color);
         game.setBallSize(window.pongSettings.ball.size);
         game.setBallVelocity(window.pongSettings.ball.velocity);
-        title.innerHTML = window.pongSettings.title;
 
         game.setTextStyle({
             font: font,
