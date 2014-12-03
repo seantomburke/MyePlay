@@ -17,7 +17,7 @@ var radius = 500;
 
 //create the slides and initiate impress
 var results;
-var videoIdArray = [];
+var videoObjArray = [];
 
 var istart = function(){
   var id = 100;
@@ -30,7 +30,14 @@ var istart = function(){
   .done(function() {
     for(var i = 0; i < results.length; i++) {
         var videoId = results[i].id.videoId;
-        videoIdArray.push(videoId);
+        var videoTitle = results[i].snippet.title;
+
+        var videoObject = {
+          id: videoId, 
+          title: videoTitle
+        };
+
+        videoObjArray.push(videoObject);
     }
       
       // createSlide(++id, 0, radius, 0*45, "<a href='video.html'><img src='http://img.youtube.com/vi/xYemnKEKx0c/mqdefault.jpg'></a>");
@@ -46,10 +53,10 @@ var istart = function(){
       var j = 1;
       var z = 0;
       createSlide("video", z, radius, j*45, "Videos");
-      for(var i=0; i<videoIdArray.length; i++){
+      for(var i=0; i<videoObjArray.length; i++){
           z += 50;
           j++;
-          createSlide(++id, z, radius, j*45, "<a href='/video/" + videoIdArray[i] + "'><img src='http://img.youtube.com/vi/" + videoIdArray[i] + "/mqdefault.jpg'></a>");
+          createSlide(++id, z, radius, j*45, "<a href='/video/" + videoObjArray[i].id + "'><img src='http://img.youtube.com/vi/" + videoObjArray[i].id + "/mqdefault.jpg'><h1>" + videoObjArray[i].title + "</h1></a>");
           
       }
       impress().init();
