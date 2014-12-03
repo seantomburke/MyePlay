@@ -127,17 +127,17 @@ $(document).ready(function(){
 	// Cursor Object
 	var cursor = document.createElement("span");
 	cursor.id = "cursor";
-	cursor.style.backgroundColor = "#333333";
-	cursor.style.height = "50px";
-	cursor.style.width = "50px";
+	cursor.style.backgroundColor = "#DDDDDD";
+	cursor.style.height = "10px";
+	cursor.style.width = "10px";
 	cursor.style.position = "absolute";
 	document.body.appendChild(cursor);
 	
 	var cursor2 = document.createElement("span");
 	cursor2.id = "cursor2";
-	cursor2.style.backgroundColor = "#666666";
-	cursor2.style.height = "50px";
-	cursor2.style.width = "50px";
+	cursor2.style.backgroundColor = "#DDDDDD";
+	cursor2.style.height = "10px";
+	cursor2.style.width = "10px";
 	cursor2.style.position = "absolute";
 	document.body.appendChild(cursor2);
 	
@@ -146,6 +146,24 @@ $(document).ready(function(){
 	
 	var upper_threshold = 500;
 	var lower_threshold = 900;
+
+	var upper_line = document.createElement("span");
+	upper_line.id = "top-threshold";
+	upper_line.style.backgroundColor = "#DD3399";
+	upper_line.style.height = "5px";
+	upper_line.style.width = "100%";
+	upper_line.style.top = upper_threshold;
+	document.body.appendChild(upper_line);
+
+	var lower_line = document.createElement("span");
+	lower_line.id = "top-threshold";
+	lower_line.style.backgroundColor = "#DD3399";
+	lower_line.style.height = "5px";
+	lower_line.style.width = "100%";
+	lower_line.style.top = lower_threshold;
+	document.body.appendChild(lower_line);
+
+
 	var state=0;
 	var previous_state = 0;
 	
@@ -197,7 +215,7 @@ $(document).ready(function(){
 		else{
 			document.dispatchEvent(myeplayStreamCenterEvent);
 			state = 0;
-			console.log("myeplayStreamCenterEvent");
+			//console.log("myeplayStreamCenterEvent");
 		}
 		
 		console.log(state, "==", previous_state);
