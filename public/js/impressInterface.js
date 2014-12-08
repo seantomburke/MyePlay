@@ -13,7 +13,7 @@ var createSlide = function(id,x,radius,angle,html,image){
     $("#impress").append(new_div);
 }
 
-var radius = 500;
+var radius = 600;
 
 //create the slides and initiate impress
 var results;
@@ -23,7 +23,7 @@ var istart = function(){
   var id = 100;
 
   //cat videos!
-  $.get( "https://www.googleapis.com/youtube/v3/search?part=snippet&q=cat&type=video&key=AIzaSyBO3mcDdOXKZ-iIEXOeUuOtTEuQtNnHx2g&maxResults=20"
+  $.get( "https://www.googleapis.com/youtube/v3/search?part=snippet&q=beatles&type=video&key=AIzaSyBO3mcDdOXKZ-iIEXOeUuOtTEuQtNnHx2g&maxResults=20"
   , function( data ) {
     results = data.items;
   })
@@ -52,16 +52,10 @@ var istart = function(){
       //loop through and put placeholder images
       var j = 1;
       var z = 0;
-
-      createSlide("Pong", z, radius, j*45, "<a href='/pong'><div id='title'>Pong</div> <br>Here is a 2-player pong game.</a>");
-
-      j++;
-
-      createSlide("video", z, radius, j*45, "<div id='title'>Videos</div> <br>look up to get the bottom option, and look up for vice versa.  close eyes for two seconds to enter video.");
+      createSlide("Pong", z+= radius/10, radius, j++*45, "<a href='/pong'><div id='title'>Pong</div> <br>Here is a 2-player pong game.</a>");
+      createSlide("videos", z+= radius/10, radius, j++*45, "<a href='#''><div id='title'>Videos</div> <br>look up to go up and look down to go down. Close eyes for 2.0 seconds to enter video.</a>");
       for(var i=0; i<videoObjArray.length; i++){
-          z += 50;
-          j++;
-          createSlide(++id, z, radius, j*45, "<a href='/video/" + videoObjArray[i].id + "'><img src='http://img.youtube.com/vi/" + videoObjArray[i].id + "/mqdefault.jpg'><h1>" + videoObjArray[i].title + "</h1></a>");          
+          createSlide(++id, z += radius/10, radius, j++*45, "<a href='/video/" + videoObjArray[i].id + "'><img src='http://img.youtube.com/vi/" + videoObjArray[i].id + "/mqdefault.jpg'><h1>" + videoObjArray[i].title + "</h1></a>");          
       }
       impress().init();
   });
