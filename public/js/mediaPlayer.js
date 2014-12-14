@@ -11,16 +11,16 @@ $(document).ready(function(){
     videojs.players["video"].pause();
   });
 
-  var isHoverMenuActivate = isHoverCloseButton = isHoverVolumeButton = 
+  var isHoverMenuActivate = isHoverCloseButton = isHoverExitButton = isHoverVolumeButton = 
     isHoverVolUp = isHoverVolBack = isHoverVolDown = false;
 
-  var timerConstOpen, timerConstClose, timerConstVolumeMenu, timerConstVolUp, 
-    timerConstVolBack, timerConstVolDown;
+  var timerConstOpen, timerConstClose, timerConstExit, timerConstVolumeMenu, 
+    timerConstVolUp, timerConstVolBack, timerConstVolDown;
 
-  var secondsOpen = secondsClose = secondsVolumeMenu = secondsVolUp = 
+  var secondsOpen = secondsClose = secondsExit = secondsVolumeMenu = secondsVolUp = 
     secondsVolBack = secondsVolDown = 2;
 
-  var milliOpen = milliClose = milliVolumeMenu = milliVolUp = 
+  var milliOpen = milliClose = milliExit = milliVolumeMenu = milliVolUp = 
     milliVolBack = milliVolDown = 1;
 
   var currentVolume;
@@ -42,6 +42,15 @@ $(document).ready(function(){
       $("#menu").modal('hide');
       videojs.players["video"].play();
     }
+
+    var exitMenu = function(e) {
+      if(! isHoverExitButton) {
+        return;
+      }
+      console.log("exit menu");
+      window.location.replace("/index");
+    }
+
 
   var modalTimerOpenMenu = function(e) {
     console.log("modaltimer openmenucalled")
@@ -103,6 +112,38 @@ $(document).ready(function(){
     isHoverCloseButton = false;
     $("#close-button").html("Close");
     clearInterval(timerConstClose);
+    secondsClose = 2;
+    milliClose = 1;
+  });
+    
+
+  var modalTimerExitMenu = function(e) {
+    console.log("modaltimer exit menu called")
+    if(secondsExit == 0 && milliExit == 0) {
+      exitMenu(e);
+      clearInterval(timerConstExit);
+      $("#exit-button").html("Exit");
+    }
+    else if(milliExit == 0) {
+      milliExit = 9;
+      --secondsExit;
+      $("#exit-button").html("" + secondsExit + "." + milliExit);
+    }
+    else {
+      $("#exit-button").html("" + secondsExit + "." + --milliExit);
+    }
+  }
+
+  $("#exit-button").on("mouseover", function(e) {
+    isHoverExitButton = true;
+    // sleep 2 seconds
+      timerConstExit = setInterval(function() {modalTimerExitMenu(e)}, 100);
+  });
+
+  $('#exit-button').on("mouseout", function(e) {
+    isHoverExitButton = false;
+    $("#exit-button").html("Exit");
+    clearInterval(timerConstExit);
     secondsClose = 2;
     milliClose = 1;
   });
