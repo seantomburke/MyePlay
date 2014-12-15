@@ -3,6 +3,11 @@ videojs.options.flash.swf = "video-js.swf";
 $(document).ready(function(){
   console.log("ready");
 
+  $('#menu').on('show.bs.modal', function () {
+    $('.modal-content').css('height',$( window ).height()*0.9); 
+    //$('.modal-content').css('width',$( window ).width()*0.5); 
+  });
+
   $("#play").on("click", function(e){
     videojs.players["video"].play();
   });
@@ -144,8 +149,8 @@ $(document).ready(function(){
     isHoverExitButton = false;
     $("#exit-button").html("Exit");
     clearInterval(timerConstExit);
-    secondsClose = 2;
-    milliClose = 1;
+    secondsExit = 2;
+    milliExit = 1;
   });
     
 
