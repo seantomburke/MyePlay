@@ -39,3 +39,8 @@ body{
 	font-size: 50px !important;
 
 }
+
+.modal-margin {
+	margin-top: 25%;
+	  width: 100%;
+}

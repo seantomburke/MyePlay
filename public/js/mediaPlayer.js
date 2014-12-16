@@ -4,8 +4,8 @@ $(document).ready(function(){
   console.log("ready");
 
   $('#menu').on('show.bs.modal', function () {
-    $('.modal-content').css('height',$( window ).height()*0.9); 
-    //$('.modal-content').css('width',$( window ).width()*0.5); 
+    // $('.modal-content').css('height',$( window ).height()*0.9); 
+    // $('.modal-content').css('width',$( window ).width()); 
   });
 
   $("#play").on("click", function(e){
@@ -316,4 +316,36 @@ $(document).ready(function(){
     secondsVolDown = 2;
     milliVolDown = 1;
   });
+
+  var menuOpen = false;
+
+  document.addEventListener("myeplay-action-up",function(e){
+      console.log(e);
+      // game.players.a.move(e.value);
+      if(menuOpen) {
+        videojs.players["video"].play();
+        $("#menu").modal('hide');
+        menuOpen = false;
+      } 
+  },false);
+
+  //var down = new Event("myeplay-action-down");
+  //document.dispatchEvent(down);
+  document.addEventListener("myeplay-action-down",function(e){
+      console.log(e);
+      // game.players.a.move(e.value);
+      if(menuOpen) {
+          window.location.href="/index";
+      } 
+  },false);
+
+  // var close = new Event("myeplay-action-close");
+  // document.dispatchEvent(close);
+
+  document.addEventListener("myeplay-action-close",function(e){
+      console.log(e);
+      videojs.players["video"].pause();
+      $("#menu").modal('show');
+      menuOpen = true;
+  },false);
 });
