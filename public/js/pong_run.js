@@ -76,8 +76,9 @@
             // game.players.a.move(e.value);
             if(menuOpen) {
                 sound.pause();
-                window.location.href="/index";
                 menuOpen = false;
+                window.location.href="/index";
+                
             } 
         },false);
 

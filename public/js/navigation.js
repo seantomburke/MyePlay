@@ -131,9 +131,8 @@ document.addEventListener("myeplay-stream-center", function(event){
 
 });
 
-
+var sound = new Audio("http://www.oringz.com/oringz-uploads/sounds-917-communication-channel.mp3");
 document.addEventListener("myeplay-action-close", function(event){
-    var sound = new Audio("http://www.oringz.com/oringz-uploads/sounds-917-communication-channel.mp3");
     sound.play();
     var active_slide = document.querySelector(".active");
 	console.log(active_slide);
@@ -142,7 +141,6 @@ document.addEventListener("myeplay-action-close", function(event){
 	var link = anchor.getAttribute("href");
 	console.log(link);
 	window.location.replace(link);
-	sound.pause();
 });
 
 
