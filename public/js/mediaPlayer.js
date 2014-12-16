@@ -3,6 +3,11 @@ videojs.options.flash.swf = "video-js.swf";
 $(document).ready(function(){
   console.log("ready");
 
+  $('#menu').on('show.bs.modal', function () {
+    // $('.modal-content').css('height',$( window ).height()*0.9); 
+    // $('.modal-content').css('width',$( window ).width()); 
+  });
+
   $("#play").on("click", function(e){
     videojs.players["video"].play();
   });
@@ -11,16 +16,16 @@ $(document).ready(function(){
     videojs.players["video"].pause();
   });
 
-  var isHoverMenuActivate = isHoverCloseButton = isHoverVolumeButton = 
+  var isHoverMenuActivate = isHoverCloseButton = isHoverExitButton = isHoverVolumeButton = 
     isHoverVolUp = isHoverVolBack = isHoverVolDown = false;
 
-  var timerConstOpen, timerConstClose, timerConstVolumeMenu, timerConstVolUp, 
-    timerConstVolBack, timerConstVolDown;
+  var timerConstOpen, timerConstClose, timerConstExit, timerConstVolumeMenu, 
+    timerConstVolUp, timerConstVolBack, timerConstVolDown;
 
-  var secondsOpen = secondsClose = secondsVolumeMenu = secondsVolUp = 
+  var secondsOpen = secondsClose = secondsExit = secondsVolumeMenu = secondsVolUp = 
     secondsVolBack = secondsVolDown = 2;
 
-  var milliOpen = milliClose = milliVolumeMenu = milliVolUp = 
+  var milliOpen = milliClose = milliExit = milliVolumeMenu = milliVolUp = 
     milliVolBack = milliVolDown = 1;
 
   var currentVolume;
@@ -42,6 +47,15 @@ $(document).ready(function(){
       $("#menu").modal('hide');
       videojs.players["video"].play();
     }
+
+    var exitMenu = function(e) {
+      if(! isHoverExitButton) {
+        return;
+      }
+      console.log("exit menu");
+      window.location.replace("/index");
+    }
+
 
   var modalTimerOpenMenu = function(e) {
     console.log("modaltimer openmenucalled")
@@ -105,6 +119,38 @@ $(document).ready(function(){
     clearInterval(timerConstClose);
     secondsClose = 2;
     milliClose = 1;
+  });
+    
+
+  var modalTimerExitMenu = function(e) {
+    console.log("modaltimer exit menu called")
+    if(secondsExit == 0 && milliExit == 0) {
+      exitMenu(e);
+      clearInterval(timerConstExit);
+      $("#exit-button").html("Exit");
+    }
+    else if(milliExit == 0) {
+      milliExit = 9;
+      --secondsExit;
+      $("#exit-button").html("" + secondsExit + "." + milliExit);
+    }
+    else {
+      $("#exit-button").html("" + secondsExit + "." + --milliExit);
+    }
+  }
+
+  $("#exit-button").on("mouseover", function(e) {
+    isHoverExitButton = true;
+    // sleep 2 seconds
+      timerConstExit = setInterval(function() {modalTimerExitMenu(e)}, 100);
+  });
+
+  $('#exit-button').on("mouseout", function(e) {
+    isHoverExitButton = false;
+    $("#exit-button").html("Exit");
+    clearInterval(timerConstExit);
+    secondsExit = 2;
+    milliExit = 1;
   });
     
 
@@ -270,4 +316,38 @@ $(document).ready(function(){
     secondsVolDown = 2;
     milliVolDown = 1;
   });
+
+  var menuOpen = false;
+
+  document.addEventListener("myeplay-action-up",function(e){
+      console.log(e);
+      // game.players.a.move(e.value);
+      if(menuOpen) {
+        videojs.players["video"].play();
+        $("#menu").modal('hide');
+        menuOpen = false;
+      } 
+  },false);
+
+  //var down = new Event("myeplay-action-down");
+  //document.dispatchEvent(down);
+  document.addEventListener("myeplay-action-down",function(e){
+      console.log(e);
+      // game.players.a.move(e.value);
+      if(menuOpen) {
+          window.location.href="/index";
+      } 
+  },false);
+
+  // var close = new Event("myeplay-action-close");
+  // document.dispatchEvent(close);
+
+  document.addEventListener("myeplay-action-close",function(e){
+                var sound = new Audio("http://www.oringz.com/oringz-uploads/sounds-917-communication-channel.mp3");
+            sound.play();
+      console.log(e);
+      videojs.players["video"].pause();
+      $("#menu").modal('show');
+      menuOpen = true;
+  },false);
 });

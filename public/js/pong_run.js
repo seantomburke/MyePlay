@@ -82,6 +82,8 @@
 
         document.addEventListener("myeplay-action-close",function(e){
             console.log(e);
+            var sound = new Audio("http://www.oringz.com/oringz-uploads/sounds-917-communication-channel.mp3");
+            sound.play();
             game.pause(); 
             $("#menu").modal('show');
             menuOpen = true;
