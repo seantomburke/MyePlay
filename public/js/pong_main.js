@@ -111,4 +111,5 @@ launchPong(function () {
     milliClose = 1;
   });
 
+game.start();
 // });
