@@ -133,6 +133,8 @@ document.addEventListener("myeplay-stream-center", function(event){
 
 
 document.addEventListener("myeplay-action-close", function(event){
+                var sound = new Audio("http://www.oringz.com/oringz-uploads/sounds-917-communication-channel.mp3");
+            sound.play();
     var active_slide = document.querySelector(".active");
 	console.log(active_slide);
 	var anchor = active_slide.querySelector("a");

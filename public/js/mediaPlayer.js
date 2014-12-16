@@ -343,6 +343,8 @@ $(document).ready(function(){
   // document.dispatchEvent(close);
 
   document.addEventListener("myeplay-action-close",function(e){
+                var sound = new Audio("http://www.oringz.com/oringz-uploads/sounds-917-communication-channel.mp3");
+            sound.play();
       console.log(e);
       videojs.players["video"].pause();
       $("#menu").modal('show');
