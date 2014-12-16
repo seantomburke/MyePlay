@@ -87,6 +87,7 @@
             game.pause(); 
             $("#menu").modal('show');
             menuOpen = true;
+            sound.pause();
         },false);
 
         window.onkeyup = function (e) {

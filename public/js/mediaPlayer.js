@@ -349,5 +349,6 @@ $(document).ready(function(){
       videojs.players["video"].pause();
       $("#menu").modal('show');
       menuOpen = true;
+      sound.pause();
   },false);
 });

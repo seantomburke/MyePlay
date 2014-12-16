@@ -142,7 +142,7 @@ document.addEventListener("myeplay-action-close", function(event){
 	var link = anchor.getAttribute("href");
 	console.log(link);
 	window.location.replace(link);
-	
+	sound.pause();
 });
 
 
