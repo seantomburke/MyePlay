@@ -1,5 +1,6 @@
 (function () {
     'use strict';
+    var sound = new Audio("http://www.oringz.com/oringz-uploads/sounds-917-communication-channel.mp3");
 
     var title = document.getElementById('title'),
         pongWrap = document.getElementById('pong'),
@@ -61,6 +62,7 @@
             console.log(e);
             // game.players.a.move(e.value);
             if(menuOpen) {
+              sound.pause();
               game.resume();
               $("#menu").modal('hide');
               menuOpen = false;
@@ -73,7 +75,9 @@
             console.log(e);
             // game.players.a.move(e.value);
             if(menuOpen) {
+                sound.pause();
                 window.location.href="/index";
+                menuOpen = false;
             } 
         },false);
 
@@ -82,12 +86,10 @@
 
         document.addEventListener("myeplay-action-close",function(e){
             console.log(e);
-            var sound = new Audio("http://www.oringz.com/oringz-uploads/sounds-917-communication-channel.mp3");
             sound.play();
             game.pause(); 
             $("#menu").modal('show');
             menuOpen = true;
-            sound.pause();
         },false);
 
         window.onkeyup = function (e) {

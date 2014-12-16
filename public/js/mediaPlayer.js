@@ -15,6 +15,7 @@ $(document).ready(function(){
   $("#pause").on("click", function(e){
     videojs.players["video"].pause();
   });
+var sound = new Audio("http://www.oringz.com/oringz-uploads/sounds-917-communication-channel.mp3");
 
   var isHoverMenuActivate = isHoverCloseButton = isHoverExitButton = isHoverVolumeButton = 
     isHoverVolUp = isHoverVolBack = isHoverVolDown = false;
@@ -323,6 +324,7 @@ $(document).ready(function(){
       console.log(e);
       // game.players.a.move(e.value);
       if(menuOpen) {
+        sound.pause();
         videojs.players["video"].play();
         $("#menu").modal('hide');
         menuOpen = false;
@@ -335,6 +337,7 @@ $(document).ready(function(){
       console.log(e);
       // game.players.a.move(e.value);
       if(menuOpen) {
+          sound.pause();
           window.location.href="/index";
       } 
   },false);
@@ -343,12 +346,10 @@ $(document).ready(function(){
   // document.dispatchEvent(close);
 
   document.addEventListener("myeplay-action-close",function(e){
-                var sound = new Audio("http://www.oringz.com/oringz-uploads/sounds-917-communication-channel.mp3");
-            sound.play();
+      sound.play();
       console.log(e);
       videojs.players["video"].pause();
       $("#menu").modal('show');
       menuOpen = true;
-      sound.pause();
   },false);
 });
